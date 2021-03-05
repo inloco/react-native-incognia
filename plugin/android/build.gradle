@@ -1,0 +1,52 @@
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.1'
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion safeExtGet('compileSdkVersion', 28)
+    buildToolsVersion safeExtGet('buildToolsVersion', '26.0.3')
+
+    defaultConfig {
+        minSdkVersion safeExtGet('minSdkVersion', 14)
+        targetSdkVersion safeExtGet('targetSdkVersion', 28)
+        versionCode 1
+        versionName "1.0"
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    def supportLibVersion = safeExtGet('supportLibVersion', '28.0.0')
+    def supportLibMajorVersion = supportLibVersion.split('\\.')[0] as int
+    def appCompatLibName =  (supportLibMajorVersion < 20) ? "androidx.legacy:legacy-support-v4" : "com.android.support:support-v4"
+    implementation "$appCompatLibName:$supportLibVersion"
+    implementation('com.facebook.react:react-native:+') {
+        exclude group: 'com.android.support'
+    }
+    implementation 'com.inlocomedia.android:android-sdk-location:5.6.+'
+    implementation 'com.inlocomedia.android:android-sdk-engagement:5.6.+'
+    implementation "com.google.android.gms:play-services-ads-identifier:${safeExtGet('playServicesVersion', '17.0.0')}"
+    implementation "com.google.android.gms:play-services-location:${safeExtGet('playServicesVersion', '17.0.0')}"
+}
+
+  

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <!-->The Application ID<-->
+        <key>applicationId</key>
+        <string>YOUR-APP-ID</string>
+        <!-->Indicates whether the SDK should present logs or not. Default value: true<-->
+        <key>logEnabled</key>
+        <true/>
+        <!-->Indicates whether the user privacy consent is required. Default value: false<-->
+        <key>privacyConsentRequired</key>
+        <false/>
+        <!-->Indicates whether location tracking should be enabled by default during SDK initialization. Default value: true<-->
+        <key>locationEnabledByDefault</key>
+        <true/>
+        <!-->Indicates whether the SDK is allowed to track the user's screen navigation. Default value: false<-->
+        <key>screenTrackingEnabled</key>
+        <false/>
+        <!-->Sets the devices that will run the SDK in development mode. Development devices send information about the SDK integration for troubleshooting in near real-time.<-->
+        <key>developmentDevices</key>
+        <array/>
+    </dict>
+</plist>

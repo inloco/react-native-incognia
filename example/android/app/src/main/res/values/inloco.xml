@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Your In Loco App id-->
+    <string name="inloco_app_id" translatable="false">YOUR_APP_ID</string>
+
+    <!-- Whether SDK logs are enabled -->
+    <bool name="inloco_log_enabled">true</bool>
+
+    <!-- Whether visits tracking is enabled by default during SDK initialization -->
+    <bool name="inloco_visits_enabled_by_default">true</bool>
+
+    <!-- Whether screen tracking is enabled -->
+    <bool name="inloco_screen_tracking_enabled">false</bool>
+
+    <!-- Whether the user needs to provide privacy consent -->
+    <bool name="inloco_privacy_consent_required">false</bool>
+
+    <!-- Whether foreground service should be used -->
+    <bool name="inloco_foreground_service_enabled">false</bool>
+
+    <!-- Whether background wakeup is enabled -->
+    <bool name="inloco_background_wakeup_enabled">true</bool>
+</resources>
