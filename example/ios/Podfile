@@ -43,7 +43,7 @@ target 'InLocoForAppsSample' do
 
   pod 'Firebase/Messaging', '~> 6.11.0'
 
-  pod 'InLocoEngage-iOS-SDK', '~> 5.6.1'
+  pod 'Incognia', '~> 5.6.1'
 
   target 'InLocoForAppsSampleTests' do
     inherit! :search_paths

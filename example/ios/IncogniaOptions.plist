@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>applicationId</key>
+	<string>YOUR-APP-ID</string>
+	<key>logEnabled</key>
+	<true/>
+	<key>privacyConsentRequired</key>
+	<false/>
+	<key>locationEnabledByDefault</key>
+	<true/>
+	<key>screenTrackingEnabled</key>
+	<false/>
+	<key>developmentDevices</key>
+	<array/>
+</dict>
+</plist>

@@ -1,32 +1,34 @@
-
 #if __has_include("RCTBridgeModule.h")
 #import "RCTBridgeModule.h"
 #else
 #import <React/RCTBridgeModule.h>
 #endif
 
-#if __has_include(<InLocoSDK/InLoco.h>) // from Pod
-#import <InLocoSDK/InLoco.h>
+#if __has_include(<IncogniaCore/IncogniaCore.h>) // from Pod
+#import <IncogniaCore/IncogniaCore.h>
 #else
-#import "ILMInLoco.h"
-#import "ILMInLocoEvents.h"
-#import "ILMInLocoDemo.h"
+#import "ICGError.h"
+#import "ICGOptions.h"
+#import "ICGConsentTypes.h"
+#import "ICGConsentResult.h"
+#import "ICGConsentDialogOptions.h"
+#import "ICGUserAddress.h"
+#import "ICGTransactionAddress.h"
+#import "ICGCheckIn.h"
 #endif
 
-#if __has_include(<InLocoSDKEngage/InLocoEngage.h>) // from Pod
-#import <InLocoSDKEngage/InLocoEngage.h>
+#if __has_include(<Incognia/Incognia.h>) // from Pod
+#import <Incognia/Incognia.h>
 #else
-#import "ILMInLocoPush.h"
-#import "ILMInLocoAddressValidation.h"
+#import "ICGIncognia.h"
+#import "ICGIncogniaDemo.h"
+#import "ICGError.h"
+#import "ICGUserAddress.h"
+#import "ICGTransactionAddress.h"
+#import "ICGConsentTypes.h"
 #endif
 
-#if __has_include(<InLocoSDKLocation/InLocoLocation.h>) // from Pod
-#import <InLocoSDKLocation/InLocoLocation.h>
-#else
-#import "ILMInLocoVisits.h"
-#endif
-
-@interface RNInLocoEngage : NSObject <RCTBridgeModule>
+@interface RNInLocoEngage: NSObject <RCTBridgeModule>
 
 @end
   

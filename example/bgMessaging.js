@@ -1,5 +1,5 @@
 import firebase from 'react-native-firebase';
-import InLocoEngage from 'react-native-inlocoengage';
+import InLocoEngage from 'react-native-incognia';
 
 export default async (message) => {
     if(InLocoEngage.isInLocoEngageMessage(message)) {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, View, ScrollView, SafeAreaView, Button, Linking} from 'react-native';
-import InLocoEngage from 'react-native-inlocoengage';
+import InLocoEngage from 'react-native-incognia';
 import firebase from 'react-native-firebase';
 import {request, requestNotifications, PERMISSIONS} from 'react-native-permissions';
 

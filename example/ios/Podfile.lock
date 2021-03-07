@@ -94,11 +94,9 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.7.1):
     - GoogleUtilities/Logger
-  - InLoco-iOS-SDK (5.6.1):
-    - InLocoCommon-iOS-SDK (= 5.6.1)
-  - InLocoCommon-iOS-SDK (5.6.1)
-  - InLocoEngage-iOS-SDK (5.6.1):
-    - InLoco-iOS-SDK (= 5.6.1)
+  - Incognia (5.6.1):
+    - IncogniaCore (= 5.6.1)
+  - IncogniaCore (5.6.1)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
     - nanopb/encode (= 0.3.9011)
@@ -275,8 +273,8 @@ PODS:
     - React-cxxreact (= 0.61.3)
     - React-jsi (= 0.61.3)
   - React-jsinspector (0.61.3)
-  - react-native-inlocoengage (5.5.1):
-    - InLocoEngage-iOS-SDK (~> 5.6.1)
+  - react-native-incognia (5.6.0):
+    - Incognia (~> 5.6.1)
     - React
   - React-RCTActionSheet (0.61.3):
     - React-Core/RCTActionSheetHeaders (= 0.61.3)
@@ -333,7 +331,7 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 6.11.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - InLocoEngage-iOS-SDK (~> 5.6.1)
+  - Incognia (~> 5.6.1)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
   - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
   - Permission-Notifications (from `../node_modules/react-native-permissions/ios/Notifications.podspec`)
@@ -348,7 +346,7 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-inlocoengage (from `../../plugin`)
+  - react-native-incognia (from `../node_modules/react-native-incognia`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
   - React-RCTBlob (from `../node_modules/react-native/Libraries/Blob`)
@@ -381,9 +379,8 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
-    - InLoco-iOS-SDK
-    - InLocoCommon-iOS-SDK
-    - InLocoEngage-iOS-SDK
+    - Incognia
+    - IncogniaCore
     - nanopb
     - PromisesObjC
     - Protobuf
@@ -423,8 +420,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-inlocoengage:
-    :path: "../../plugin"
+  react-native-incognia:
+    :path: "../node_modules/react-native-incognia"
   React-RCTActionSheet:
     :path: "../node_modules/react-native/Libraries/ActionSheetIOS"
   React-RCTAnimation:
@@ -473,9 +470,8 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 9a8a16f79feffc7f42096743de2a7c4815e84020
   GoogleDataTransportCCTSupport: 0f39025e8cf51f168711bd3fb773938d7e62ddb5
   GoogleUtilities: e121a3867449ce16b0e35ddf1797ea7a389ffdf2
-  InLoco-iOS-SDK: 7d6276c3058f7c3e7b084fe1c4798f89b66c7fb9
-  InLocoCommon-iOS-SDK: cc69b1d1ac07ca0b3364fbda82b3105c3111d592
-  InLocoEngage-iOS-SDK: e05b52cfa3d042da74f7939ee0a3f908baee70bd
+  Incognia: 4034039c6b66ddd65e5990476aafbd120982c4fc
+  IncogniaCore: 09b12dc725b963f942bd07fb3092efec3c77e4de
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   Permission-LocationAlways: 781e472b8235fb8b6d2e947b2e4d6cce2c0343c9
   Permission-LocationWhenInUse: 5cb8e0df1463dfab567d2a3d2589ab557fda68cb
@@ -491,7 +487,7 @@ SPEC CHECKSUMS:
   React-jsi: 8bcf5836caa8a759c135ab9ef97f3e023a7b94af
   React-jsiexecutor: ae078e9df9c65bcdcf68f9a17656657932d95528
   React-jsinspector: a8939cc6909607eb5e8a5ecfff7c6226984e174d
-  react-native-inlocoengage: 67e038cb2df85c7a2552bdfcac22ee7316aadc6c
+  react-native-incognia: 3354c891fdba2cf7e451c0f75a3a847f4c4049b7
   React-RCTActionSheet: 94671eef55b01a93be735605822ef712d5ea208e
   React-RCTAnimation: 524ae33e73de9c0fe6501a7a4bda8e01d26499d9
   React-RCTBlob: 5481c2db702f57207af7e7a9b32d90524b821b72
@@ -506,6 +502,6 @@ SPEC CHECKSUMS:
   RNPermissions: 9e437a90de84a5402ff689d4da233730b81556c2
   Yoga: 02036f6383c0008edb7ef0773a0e6beb6ce82bd1
 
-PODFILE CHECKSUM: ba047fb5026ccf209cbc22bcd0e2c832d922016b
+PODFILE CHECKSUM: 987cf36efbe2e1091ba239abd0c0dfe1b805c4e4
 
 COCOAPODS: 1.10.1
