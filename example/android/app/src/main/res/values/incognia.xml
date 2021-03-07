@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Your In Loco App id-->
+    <string name="incognia_app_id" translatable="false">YOUR_APP_ID</string>
+
+    <!-- Whether SDK logs are enabled -->
+    <bool name="incognia_log_enabled">true</bool>
+
+    <!-- Whether visits tracking is enabled by default during SDK initialization -->
+    <bool name="incognia_visits_enabled_by_default">true</bool>
+
+    <!-- Whether screen tracking is enabled -->
+    <bool name="incognia_screen_tracking_enabled">false</bool>
+
+    <!-- Whether the user needs to provide privacy consent -->
+    <bool name="incognia_privacy_consent_required">false</bool>
+
+    <!-- Whether foreground service should be used -->
+    <bool name="incognia_foreground_service_enabled">false</bool>
+
+    <!-- Whether background wakeup is enabled -->
+    <bool name="incognia_background_wakeup_enabled">true</bool>
+</resources>
