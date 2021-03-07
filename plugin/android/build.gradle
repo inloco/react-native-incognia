@@ -43,8 +43,7 @@ dependencies {
     implementation('com.facebook.react:react-native:+') {
         exclude group: 'com.android.support'
     }
-    implementation 'com.inlocomedia.android:android-sdk-location:5.6.+'
-    implementation 'com.inlocomedia.android:android-sdk-engagement:5.6.+'
+    implementation 'com.incognia:incognia:5.6.2'
     implementation "com.google.android.gms:play-services-ads-identifier:${safeExtGet('playServicesVersion', '17.0.0')}"
     implementation "com.google.android.gms:play-services-location:${safeExtGet('playServicesVersion', '17.0.0')}"
 }

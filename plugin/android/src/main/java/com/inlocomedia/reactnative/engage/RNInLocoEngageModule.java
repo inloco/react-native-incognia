@@ -1,7 +1,6 @@
 package com.inlocomedia.reactnative.engage;
 
 import android.location.Address;
-import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
@@ -11,21 +10,16 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.inlocomedia.android.common.ConsentDialogOptions;
-import com.inlocomedia.android.common.ConsentResult;
-import com.inlocomedia.android.common.InLoco;
-import com.inlocomedia.android.common.InLocoDemo;
-import com.inlocomedia.android.common.InLocoEvents;
-import com.inlocomedia.android.common.InLocoOptions;
-import com.inlocomedia.android.common.listener.ConsentListener;
-import com.inlocomedia.android.common.listener.InLocoListener;
-import com.inlocomedia.android.common.listener.Result;
-import com.inlocomedia.android.engagement.InLocoAddressValidation;
-import com.inlocomedia.android.engagement.InLocoPush;
-import com.inlocomedia.android.engagement.PushMessage;
-import com.inlocomedia.android.engagement.request.PushProvider;
-import com.inlocomedia.android.location.CheckIn;
-import com.inlocomedia.android.location.InLocoVisits;
+import com.incognia.core.CheckIn;
+import com.incognia.core.ConsentDialogOptions;
+import com.incognia.core.ConsentResult;
+import com.incognia.core.ConsentTypes;
+import com.incognia.core.IncogniaOptions;
+import com.incognia.core.listener.ConsentListener;
+import com.incognia.core.listener.IncogniaListener;
+import com.incognia.core.listener.Result;
+import com.incognia.icg.Incognia;
+import com.incognia.icg.IncogniaDemo;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -73,12 +67,12 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void initSdk() {
-        InLoco.init(reactContext);
+        Incognia.init(reactContext);
     }
 
     @ReactMethod
     public void initSdkWithOptions(final ReadableMap optionsMap) {
-        InLocoOptions.Builder options = new InLocoOptions.Builder();
+        IncogniaOptions.Builder options = new IncogniaOptions.Builder();
         options.appId(optionsMap.getString(OPTIONS_APP_ID));
         options.logEnabled(optionsMap.getBoolean(OPTIONS_LOGS_ENABLED));
         options.visitsEnabledByDefault(optionsMap.getBoolean(OPTIONS_VISITS_ENABLED));
@@ -87,17 +81,17 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
         options.screenTrackingEnabled(optionsMap.getBoolean(OPTIONS_SCREEN_TRACKING_ENABLED));
         options.developmentDevices(convertReadableArrayToSet(optionsMap.getArray(OPTIONS_DEVELOPMENT_DEVICES)));
 
-        InLoco.init(reactContext, options.build());
+        Incognia.init(reactContext, options.build());
     }
 
     @ReactMethod
     public void setUser(final String userId) {
-        InLoco.setUserId(reactContext, userId);
+        Incognia.setUserId(reactContext, userId);
     }
 
     @ReactMethod
     public void clearUser() {
-        InLoco.clearUserId(reactContext);
+        Incognia.clearUserId(reactContext);
     }
 
     @ReactMethod
@@ -117,7 +111,7 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
         }
         consentDialogOptions.consentTypes(convertReadableArrayToSet(consentTypesArray));
 
-        InLoco.requestPrivacyConsent(consentDialogOptions.build(), new ConsentListener() {
+        Incognia.requestPrivacyConsent(consentDialogOptions.build(), new ConsentListener() {
             @Override
             public void onConsentResult(final ConsentResult consentResult) {
                 boolean hasFinished = consentResult.hasFinished();
@@ -137,56 +131,59 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
     @ReactMethod
     @Deprecated
     public void giveUserPrivacyConsent(final boolean consentGiven) {
-        InLoco.givePrivacyConsent(reactContext, consentGiven);
+        Incognia.allowConsentTypes(reactContext, ConsentTypes.ALL, false);
     }
 
     @ReactMethod
     @Deprecated
     public void giveUserPrivacyConsentForTypes(final ReadableArray consentTypesArray) {
         Set<String> consentTypes = convertReadableArrayToSet(consentTypesArray);
-        InLoco.givePrivacyConsent(reactContext, consentTypes);
+        Incognia.allowConsentTypes(reactContext, consentTypes, false);
     }
 
     @ReactMethod
     public void setAllowedConsentTypes(final ReadableArray consentTypesArray) {
         Set<String> consentTypes = convertReadableArrayToSet(consentTypesArray);
-        InLoco.setAllowedConsentTypes(reactContext, consentTypes);
+        Incognia.allowConsentTypes(reactContext, consentTypes, true);
     }
 
     @ReactMethod
     public void allowConsentTypes(final ReadableArray consentTypesArray) {
         Set<String> consentTypes = convertReadableArrayToSet(consentTypesArray);
-        InLoco.allowConsentTypes(reactContext, consentTypes);
+        Incognia.allowConsentTypes(reactContext, consentTypes, false);
     }
 
     @ReactMethod
     public void denyConsentTypes(final ReadableArray consentTypesArray) {
         Set<String> consentTypes = convertReadableArrayToSet(consentTypesArray);
-        InLoco.denyConsentTypes(reactContext, consentTypes);
+        Incognia.denyConsentTypes(reactContext, consentTypes);
     }
 
     @ReactMethod
     @Deprecated
     public void checkPrivacyConsentMissing(final Promise promise) {
-        InLoco.checkPrivacyConsentMissing(reactContext, new InLocoListener<Boolean>() {
-            @Override
-            public void onResult(Result<Boolean> result) {
-                if (result.isSuccessful()) {
-                    boolean privacyConsentMissing = result.getResult();
-                    if(promise != null) {
-                        promise.resolve(privacyConsentMissing);
-                    }
-                } else {
-                    promise.reject(new Exception("Error while checking if privacy consent is missing."));
-                }
-            }
-        });
+//        Incognia.checkConsent(reactContext, new IncogniaListener<Boolean>() {
+//            @Override
+//            public void onResult(Result<Boolean> result) {
+//                if (result.isSuccessful()) {
+//                    boolean privacyConsentMissing = result.getResult();
+//                    if(promise != null) {
+//                        promise.resolve(privacyConsentMissing);
+//                    }
+//                } else {
+//                    promise.reject(new Exception("Error while checking if privacy consent is missing."));
+//                }
+//            }
+//        });
+        if(promise != null) {
+            promise.resolve(null);
+        }
     }
 
     @ReactMethod
     public void checkConsent(final ReadableArray consentTypesArray, final Promise promise) {
         Set<String> consentTypes = convertReadableArrayToSet(consentTypesArray);
-        InLoco.checkConsent(reactContext, new ConsentListener() {
+        Incognia.checkConsent(reactContext, new ConsentListener() {
             @Override
             public void onConsentResult(final ConsentResult consentResult) {
                 boolean hasFinished = consentResult.hasFinished();
@@ -205,52 +202,52 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setPushProvider(final String name, final String token) {
-        PushProvider pushProvider = new PushProvider.Builder()
-                .setName(name)
-                .setToken(token)
-                .build();
-
-        InLocoPush.setPushProvider(reactContext, pushProvider);
+//        PushProvider pushProvider = new PushProvider.Builder()
+//                .setName(name)
+//                .setToken(token)
+//                .build();
+//
+//        IncogniaPush.setPushProvider(reactContext, pushProvider);
     }
 
     @ReactMethod
     public void setPushNotificationsEnabled(final boolean enabled) {
-        InLocoPush.setEnabled(reactContext, enabled);
+//        IncogniaPush.setEnabled(reactContext, enabled);
     }
 
     @ReactMethod
     public void presentNotification(ReadableMap messageMap, String channelId, int notificationId) {
-        int smallIconResId = reactContext.getResources().getIdentifier("ic_notification", "mipmap", reactContext.getPackageName());
-        if (smallIconResId == 0) {
-            smallIconResId = reactContext.getResources().getIdentifier("ic_launcher", "mipmap", reactContext.getPackageName());
-            if (smallIconResId == 0) {
-                smallIconResId = android.R.drawable.ic_dialog_info;
-            }
-        }
-
-        final PushMessage pushContent = InLocoPush.decodeReceivedMessage(reactContext, convertToStringStringMap(messageMap.toHashMap()));
-
-        if (pushContent != null) {
-            InLocoPush.presentNotification(
-                    reactContext,
-                    pushContent,
-                    smallIconResId,
-                    notificationId,
-                    channelId
-            );
-        }
+//        int smallIconResId = reactContext.getResources().getIdentifier("ic_notification", "mipmap", reactContext.getPackageName());
+//        if (smallIconResId == 0) {
+//            smallIconResId = reactContext.getResources().getIdentifier("ic_launcher", "mipmap", reactContext.getPackageName());
+//            if (smallIconResId == 0) {
+//                smallIconResId = android.R.drawable.ic_dialog_info;
+//            }
+//        }
+//
+//        final PushMessage pushContent = IncogniaPush.decodeReceivedMessage(reactContext, convertToStringStringMap(messageMap.toHashMap()));
+//
+//        if (pushContent != null) {
+//            IncogniaPush.presentNotification(
+//                    reactContext,
+//                    pushContent,
+//                    smallIconResId,
+//                    notificationId,
+//                    channelId
+//            );
+//        }
     }
 
     @ReactMethod
     public void trackEvent(final String eventName, ReadableMap properties) {
         Map<String, String> propertiesMap = convertToStringStringMap(properties.toHashMap());
-        InLocoEvents.trackEvent(reactContext, eventName, propertiesMap);
+        Incognia.trackEvent(reactContext, eventName, propertiesMap);
     }
 
     @ReactMethod
     public void trackLocalizedEvent(final String eventName, ReadableMap properties) {
         Map<String, String> propertiesMap = convertToStringStringMap(properties.toHashMap());
-        InLocoVisits.trackLocalizedEvent(reactContext, eventName, propertiesMap);
+        Incognia.trackLocalizedEvent(reactContext, eventName, propertiesMap);
     }
 
     @ReactMethod
@@ -262,23 +259,23 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
                 .extras(propertiesMap)
                 .build();
 
-        InLocoVisits.registerCheckIn(reactContext, checkIn);
+        Incognia.registerCheckIn(reactContext, checkIn);
     }
 
     @ReactMethod
     public void setUserAddress(ReadableMap addressMap) {
         Address address = convertMapToAddress(addressMap);
-        InLocoAddressValidation.setAddress(reactContext, address);
+        Incognia.setAddress(reactContext, address);
     }
 
     @ReactMethod
     public void clearUserAddress() {
-        InLocoAddressValidation.clearAddress(reactContext);
+        Incognia.clearAddress(reactContext);
     }
 
     @ReactMethod
     public void getInstallationId(final Promise promise) {
-        InLoco.getInstallationId(reactContext, new InLocoListener<String>() {
+        Incognia.getInstallationId(reactContext, new IncogniaListener<String>() {
             @Override
             public void onResult(Result<String> result) {
                 if (result.isSuccessful()) {
@@ -296,12 +293,12 @@ public class RNInLocoEngageModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void trackSignUp(String signUpId, ReadableMap addressMap) {
         Address address = convertMapToAddress(addressMap);
-        InLocoDemo.trackSignUp(reactContext, signUpId, address);
+        IncogniaDemo.trackSignUp(reactContext, signUpId, address);
     }
 
     @ReactMethod
     public void trackLogin(String accountId) {
-        InLocoDemo.trackLogin(reactContext, accountId);
+        IncogniaDemo.trackLogin(reactContext, accountId);
     }
 
     private static Address convertMapToAddress(ReadableMap map) {
