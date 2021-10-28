@@ -77,12 +77,12 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - IncogniaBR (6.1.0):
-    - IncogniaCoreBR (= 6.1.0)
-  - IncogniaCoreBR (6.1.0)
-  - IncogniaTrialBR (6.1.0):
-    - IncogniaBR (= 6.1.0)
-    - IncogniaCoreBR (= 6.1.0)
+  - IncogniaBR (6.2.0):
+    - IncogniaCoreBR (= 6.2.0)
+  - IncogniaCoreBR (6.2.0)
+  - IncogniaTrialBR (6.2.0):
+    - IncogniaBR (= 6.2.0)
+    - IncogniaCoreBR (= 6.2.0)
   - libevent (2.1.12)
   - OpenSSL-Universal (1.1.180)
   - Permission-AppTrackingTransparency (3.0.5):
@@ -259,10 +259,10 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-incognia (6.1.0):
-    - IncogniaBR (~> 6.1.0)
-    - IncogniaCoreBR (~> 6.1.0)
-    - IncogniaTrialBR (~> 6.1.0)
+  - react-native-incognia (6.2.0):
+    - IncogniaBR (~> 6.2.0)
+    - IncogniaCoreBR (~> 6.2.0)
+    - IncogniaTrialBR (~> 6.2.0)
     - React-Core
   - React-RCTActionSheet (0.63.4):
     - React-Core/RCTActionSheetHeaders (= 0.63.4)
@@ -484,9 +484,9 @@ SPEC CHECKSUMS:
   FlipperKit: 651f50a42eb95c01b3e89a60996dd6aded529eeb
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  IncogniaBR: 1522f610e25994cbb82dbed2cde636c5ed64ff61
-  IncogniaCoreBR: d51eab5ebde6e8e9dd3559fc8a207a3c422e51fb
-  IncogniaTrialBR: 2ecd7c4b282a7c2a2ed4bfa92386ac4c202f1a0e
+  IncogniaBR: 5dabe0d4c2c4a0974c6387de92556bac7e7f5b7f
+  IncogniaCoreBR: b5e1f6184b1c645d64d80218b7e551097483d4d2
+  IncogniaTrialBR: 67d1886c5d2d280b3fd036a5c01881264e146aee
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   OpenSSL-Universal: 1aa4f6a6ee7256b83db99ec1ccdaa80d10f9af9b
   Permission-AppTrackingTransparency: ed3a54759541929d0a81a75b04a3559af5b2a738
@@ -503,7 +503,7 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-incognia: 1eef785ca463e0a974c598046e8381d875260991
+  react-native-incognia: a9a3db086943ed39f4138cc6c001db667bd233e8
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
