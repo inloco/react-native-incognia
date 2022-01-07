@@ -82,24 +82,24 @@ RCT_EXPORT_METHOD(fetchInstallationId:(RCTPromiseResolveBlock)resolve withReject
 RCT_EXPORT_METHOD(requestPrivacyConsent:(NSDictionary *)parameters withResolver:(RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject) {
     ICGConsentDialogOptions *dialogOptions = [[ICGConsentDialogOptions alloc] init];
 
-    if ([parameters objectForKey:OPTIONS_CONSENT_DIALOG_TITLE]) {
-        [dialogOptions setTitle:[parameters objectForKey:OPTIONS_CONSENT_DIALOG_TITLE]];
+    if ([self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_TITLE]) {
+        [dialogOptions setTitle:[self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_TITLE]];
     }
 
-    if ([parameters objectForKey:OPTIONS_CONSENT_DIALOG_MESSAGE]) {
-        [dialogOptions setMessage:[parameters objectForKey:OPTIONS_CONSENT_DIALOG_MESSAGE]];
+    if ([self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_MESSAGE]) {
+        [dialogOptions setMessage:[self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_MESSAGE]];
     }
 
-    if ([parameters objectForKey:OPTIONS_CONSENT_DIALOG_ACCEPT_TEXT]) {
-        [dialogOptions setAcceptText:[parameters objectForKey:OPTIONS_CONSENT_DIALOG_ACCEPT_TEXT]];
+    if ([self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_ACCEPT_TEXT]) {
+        [dialogOptions setAcceptText:[self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_ACCEPT_TEXT]];
     }
 
-    if ([parameters objectForKey:OPTIONS_CONSENT_DIALOG_DENY_TEXT]) {
-        [dialogOptions setDenyText:[parameters objectForKey:OPTIONS_CONSENT_DIALOG_DENY_TEXT]];
+    if ([self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_DENY_TEXT]) {
+        [dialogOptions setDenyText:[self objectOrNilForKey:parameters key:OPTIONS_CONSENT_DIALOG_DENY_TEXT]];
     }
 
-    if ([parameters objectForKey:OPTIONS_CONSENT_TYPES]) {
-        [dialogOptions setConsentTypes:[NSSet setWithArray:[parameters objectForKey:OPTIONS_CONSENT_TYPES]]];
+    if ([self objectOrNilForKey:parameters key:OPTIONS_CONSENT_TYPES]) {
+        [dialogOptions setConsentTypes:[NSSet setWithArray:[self objectOrNilForKey:parameters key:OPTIONS_CONSENT_TYPES]]];
     }
 
     [ICGIncognia requestPrivacyConsentWithOptions:dialogOptions completionBlock:^(ICGConsentResult *_Nullable result) {
@@ -128,39 +128,39 @@ RCT_EXPORT_METHOD(checkConsent:(NSArray<NSString *> *)consentTypes withPromise:(
 }
 
 RCT_EXPORT_METHOD(trackEvent:(NSDictionary *)parameters) {
-    NSString *eventName = [parameters objectForKey:EVENT_NAME];
-    NSDictionary *eventProperties = [parameters objectForKey:EVENT_PROPERTIES];
+    NSString *eventName = [self objectOrNilForKey:parameters key:EVENT_NAME];
+    NSDictionary *eventProperties = [self objectOrNilForKey:parameters key:EVENT_PROPERTIES];
 
     [ICGIncognia trackEvent:eventName properties:[self convertToEventProperties:eventProperties]];
 }
 
 RCT_EXPORT_METHOD(trackLocalizedEvent:(NSDictionary *)parameters) {
-    NSString *eventName = [parameters objectForKey:EVENT_NAME];
-    NSDictionary *eventProperties = [parameters objectForKey:EVENT_PROPERTIES];
+    NSString *eventName = [self objectOrNilForKey:parameters key:EVENT_NAME];
+    NSDictionary *eventProperties = [self objectOrNilForKey:parameters key:EVENT_PROPERTIES];
 
     [ICGIncognia trackLocalizedEvent:eventName properties:[self convertToEventProperties:eventProperties]];
 }
 
 RCT_EXPORT_METHOD(trackSignupSent:(NSDictionary *)parameters) {
-    NSString *signupId = [parameters objectForKey:SIGNUP_ID];
-    ICGUserAddress *userAddress = [self convertToUserAddress:[parameters objectForKey:SIGNUP_ADDRESS]];
-    ICGEventProperties *properties = [self convertToEventProperties:[parameters objectForKey:SIGNUP_PROPERTIES]];
+    NSString *signupId = [self objectOrNilForKey:parameters key:SIGNUP_ID];
+    ICGUserAddress *userAddress = [self convertToUserAddress:[self objectOrNilForKey:parameters key:SIGNUP_ADDRESS]];
+    ICGEventProperties *properties = [self convertToEventProperties:[self objectOrNilForKey:parameters key:SIGNUP_PROPERTIES]];
 
     [ICGIncogniaTrial trackSignupSentWithId:signupId eventProperties:properties address:userAddress];
 }
 
 RCT_EXPORT_METHOD(trackLoginSucceeded:(NSDictionary *)parameters) {
-    NSString *loginId = [parameters objectForKey:LOGIN_ID];
-    NSString *accountId = [parameters objectForKey:LOGIN_ACCOUNT_ID];
-    ICGEventProperties *properties = [self convertToEventProperties:[parameters objectForKey:LOGIN_PROPERTIES]];
+    NSString *loginId = [self objectOrNilForKey:parameters key:LOGIN_ID];
+    NSString *accountId = [self objectOrNilForKey:parameters key:LOGIN_ACCOUNT_ID];
+    ICGEventProperties *properties = [self convertToEventProperties:[self objectOrNilForKey:parameters key:LOGIN_PROPERTIES]];
 
     [ICGIncogniaTrial trackLoginSucceededWithId:loginId accountId:accountId eventProperties:properties];
 }
 
 RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
-    NSString *transactionId = [parameters objectForKey:TRANSACTION_ID];
-    ICGEventProperties *properties = [self convertToEventProperties:[parameters objectForKey:TRANSACTION_PROPERTIES]];
-    NSArray<NSDictionary *> *transactionAddressesArr = [parameters objectForKey:TRANSACTION_ADDRESSES];
+    NSString *transactionId = [self objectOrNilForKey:parameters key:TRANSACTION_ID];
+    ICGEventProperties *properties = [self convertToEventProperties:[self objectOrNilForKey:parameters key:TRANSACTION_PROPERTIES]];
+    NSArray<NSDictionary *> *transactionAddressesArr = [self objectOrNilForKey:parameters key:TRANSACTION_ADDRESSES];
 
     NSMutableSet<ICGTransactionAddress *> *transactionAddresses = [[NSMutableSet alloc] init];
 
@@ -197,60 +197,60 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
 
     NSLocale *locale;
 
-    if ([addressDict objectForKey:ADDRESS_LOCALE_KEY]) {
-        locale = [[NSLocale alloc] initWithLocaleIdentifier:[addressDict objectForKey:ADDRESS_LOCALE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_LOCALE_KEY]) {
+        locale = [[NSLocale alloc] initWithLocaleIdentifier:[self objectOrNilForKey:addressDict key:ADDRESS_LOCALE_KEY]];
     } else {
         locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     }
 
     [userAddress setLocale:locale];
 
-    if ([addressDict objectForKey:ADDRESS_COUNTRY_NAME_KEY]) {
-        [userAddress setCountryName:[addressDict objectForKey:ADDRESS_COUNTRY_NAME_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_COUNTRY_NAME_KEY]) {
+        [userAddress setCountryName:[self objectOrNilForKey:addressDict key:ADDRESS_COUNTRY_NAME_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_COUNTRY_CODE_KEY]) {
-        [userAddress setCountryCode:[addressDict objectForKey:ADDRESS_COUNTRY_CODE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_COUNTRY_CODE_KEY]) {
+        [userAddress setCountryCode:[self objectOrNilForKey:addressDict key:ADDRESS_COUNTRY_CODE_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_ADMIN_AREA_KEY]) {
-        [userAddress setAdminArea:[addressDict objectForKey:ADDRESS_ADMIN_AREA_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_ADMIN_AREA_KEY]) {
+        [userAddress setAdminArea:[self objectOrNilForKey:addressDict key:ADDRESS_ADMIN_AREA_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_SUBADMIN_AREA_KEY]) {
-        [userAddress setSubAdminArea:[addressDict objectForKey:ADDRESS_SUBADMIN_AREA_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_SUBADMIN_AREA_KEY]) {
+        [userAddress setSubAdminArea:[self objectOrNilForKey:addressDict key:ADDRESS_SUBADMIN_AREA_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_LOCALITY_KEY]) {
-        [userAddress setLocality:[addressDict objectForKey:ADDRESS_LOCALITY_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_LOCALITY_KEY]) {
+        [userAddress setLocality:[self objectOrNilForKey:addressDict key:ADDRESS_LOCALITY_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_SUB_LOCALITY_KEY]) {
-        [userAddress setSubLocality:[addressDict objectForKey:ADDRESS_SUB_LOCALITY_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_SUB_LOCALITY_KEY]) {
+        [userAddress setSubLocality:[self objectOrNilForKey:addressDict key:ADDRESS_SUB_LOCALITY_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_THOROUGHFARE_KEY]) {
-        [userAddress setThoroughfare:[addressDict objectForKey:ADDRESS_THOROUGHFARE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_THOROUGHFARE_KEY]) {
+        [userAddress setThoroughfare:[self objectOrNilForKey:addressDict key:ADDRESS_THOROUGHFARE_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_SUB_THOROUGHFARE_KEY]) {
-        [userAddress setSubThoroughfare:[RCTConvert NSString:[addressDict objectForKey:ADDRESS_SUB_THOROUGHFARE_KEY]]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_SUB_THOROUGHFARE_KEY]) {
+        [userAddress setSubThoroughfare:[RCTConvert NSString:[self objectOrNilForKey:addressDict key:ADDRESS_SUB_THOROUGHFARE_KEY]]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_POSTAL_CODE_KEY]) {
-        [userAddress setPostalCode:[addressDict objectForKey:ADDRESS_POSTAL_CODE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_POSTAL_CODE_KEY]) {
+        [userAddress setPostalCode:[self objectOrNilForKey:addressDict key:ADDRESS_POSTAL_CODE_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_LATITUDE_KEY]) {
-        [userAddress setLatitude:[addressDict objectForKey:ADDRESS_LATITUDE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_LATITUDE_KEY]) {
+        [userAddress setLatitude:[self objectOrNilForKey:addressDict key:ADDRESS_LATITUDE_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_LONGITUDE_KEY]) {
-        [userAddress setLongitude:[addressDict objectForKey:ADDRESS_LONGITUDE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_LONGITUDE_KEY]) {
+        [userAddress setLongitude:[self objectOrNilForKey:addressDict key:ADDRESS_LONGITUDE_KEY]];
     }
 
-    if ([addressDict objectForKey:ADDRESS_LINE_KEY]) {
-        [userAddress setAddressLine:[addressDict objectForKey:ADDRESS_LINE_KEY]];
+    if ([self objectOrNilForKey:addressDict key:ADDRESS_LINE_KEY]) {
+        [userAddress setAddressLine:[self objectOrNilForKey:addressDict key:ADDRESS_LINE_KEY]];
     }
 }
 
@@ -271,7 +271,7 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
         return nil;
     }
 
-    NSString *transactionAddressType = [addressDict objectForKey:TRANSACTION_ADDRESS_TYPE] != nil ? [addressDict objectForKey:TRANSACTION_ADDRESS_TYPE] : nil;
+    NSString *transactionAddressType = [self objectOrNilForKey:addressDict key:TRANSACTION_ADDRESS_TYPE] != nil ? [self objectOrNilForKey:addressDict key:TRANSACTION_ADDRESS_TYPE] : nil;
     ICGTransactionAddress *transactionAddress = [[ICGTransactionAddress alloc] initWithType:transactionAddressType];
 
     [self fillAddress:transactionAddress addressDict:addressDict];
@@ -307,6 +307,14 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
     CFTypeID numID = CFGetTypeID((__bridge CFTypeRef)(num)); // the type ID of num
 
     return numID == boolID;
+}
+
+- (id)objectOrNilForKey:(NSDictionary *) dict key:(id)key {
+    id object = [dict objectForKey:key];
+    if (object == [NSNull null]) {
+        return nil;
+    }
+    return object;
 }
 
 @end
