@@ -58,7 +58,7 @@ type TrackLoginSucceededParamsType = {
 
 type TrackPaymentParamsType = {
   transactionId?: string;
-  transactionAddresses: Array<TransactionAddressType>;
+  transactionAddresses?: Array<TransactionAddressType>;
   properties?: Object;
 };
 
