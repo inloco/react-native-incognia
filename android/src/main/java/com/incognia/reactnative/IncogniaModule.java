@@ -130,27 +130,27 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   public void requestPrivacyConsent(final ReadableMap consentDialogOptionsMap, final Promise promise) {
     ConsentDialogOptions.Builder consentDialogOptions = new ConsentDialogOptions.Builder(getCurrentActivity());
 
-    String dialogTitle = consentDialogOptionsMap.getString(CONSENT_DIALOG_TITLE);
+    String dialogTitle = consentDialogOptionsMap.hasKey(CONSENT_DIALOG_TITLE) ? consentDialogOptionsMap.getString(CONSENT_DIALOG_TITLE) : null;
     if (dialogTitle != null) {
       consentDialogOptions.title(dialogTitle);
     }
 
-    String dialogMessage = consentDialogOptionsMap.getString(CONSENT_DIALOG_MESSAGE);
+    String dialogMessage = consentDialogOptionsMap.hasKey(CONSENT_DIALOG_MESSAGE) ? consentDialogOptionsMap.getString(CONSENT_DIALOG_MESSAGE) : null;
     if (dialogMessage != null) {
       consentDialogOptions.message(dialogMessage);
     }
 
-    String dialogAccept = consentDialogOptionsMap.getString(CONSENT_DIALOG_ACCEPT_TEXT);
+    String dialogAccept = consentDialogOptionsMap.hasKey(CONSENT_DIALOG_ACCEPT_TEXT) ? consentDialogOptionsMap.getString(CONSENT_DIALOG_ACCEPT_TEXT) : null;
     if (dialogAccept != null) {
       consentDialogOptions.acceptText(dialogAccept);
     }
 
-    String dialogDeny = consentDialogOptionsMap.getString(CONSENT_DIALOG_DENY_TEXT);
+    String dialogDeny = consentDialogOptionsMap.hasKey(CONSENT_DIALOG_DENY_TEXT) ? consentDialogOptionsMap.getString(CONSENT_DIALOG_DENY_TEXT) : null;
     if (dialogDeny != null) {
       consentDialogOptions.denyText(dialogDeny);
     }
 
-    ReadableArray consentTypesArray = consentDialogOptionsMap.getArray(CONSENT_DIALOG_TYPES);
+    ReadableArray consentTypesArray = consentDialogOptionsMap.hasKey(CONSENT_DIALOG_TYPES) ? consentDialogOptionsMap.getArray(CONSENT_DIALOG_TYPES) : null;
     if (consentTypesArray != null) {
       consentDialogOptions.consentTypes(convertStringReadableArrayToSet(consentTypesArray));
     }
@@ -190,23 +190,23 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void trackEvent(final ReadableMap parameters) {
-    String eventName = parameters.getString(EVENT_NAME);
-    EventProperties eventProperties = convertToEventProperties(parameters.getMap(EVENT_PROPERTIES));
+    String eventName = parameters.hasKey(EVENT_NAME) ? parameters.getString(EVENT_NAME) : null;
+    EventProperties eventProperties = parameters.hasKey(EVENT_PROPERTIES) ? convertToEventProperties(parameters.getMap(EVENT_PROPERTIES)) : null;
     Incognia.trackEvent(eventName, eventProperties);
   }
 
   @ReactMethod
   public void trackLocalizedEvent(final ReadableMap parameters) {
-    String eventName = parameters.getString(EVENT_NAME);
-    EventProperties eventProperties = convertToEventProperties(parameters.getMap(EVENT_PROPERTIES));
+    String eventName = parameters.hasKey(EVENT_NAME) ? parameters.getString(EVENT_NAME) : null;
+    EventProperties eventProperties = parameters.hasKey(EVENT_PROPERTIES) ? convertToEventProperties(parameters.getMap(EVENT_PROPERTIES)) : null;
     Incognia.trackLocalizedEvent(eventName, eventProperties);
   }
 
   @ReactMethod
   public void trackSignupSent(ReadableMap parameters) {
-    String signUpId = parameters.getString(SIGNUP_ID);
-    Address address = convertToAddress(parameters.getMap(SIGNUP_ADDRESS));
-    EventProperties eventProperties = convertToEventProperties(parameters.getMap(SIGNUP_PROPERTIES));
+    String signUpId = parameters.hasKey(SIGNUP_ID) ? parameters.getString(SIGNUP_ID) : null;
+    Address address = parameters.hasKey(SIGNUP_ADDRESS) ? convertToAddress(parameters.getMap(SIGNUP_ADDRESS)) : null;
+    EventProperties eventProperties = parameters.hasKey(SIGNUP_PROPERTIES) ? convertToEventProperties(parameters.getMap(SIGNUP_PROPERTIES)) : null;
 
     IncogniaTrial.trackSignupSent(signUpId, eventProperties, address);
   }
@@ -214,18 +214,18 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   @SuppressWarnings("ConstantConditions")
   @ReactMethod
   public void trackLoginSucceeded(ReadableMap parameters) {
-    String accountId = parameters.getString(LOGIN_ACCOUNT_ID);
-    String loginId = parameters.getString(LOGIN_ID);
-    EventProperties eventProperties = convertToEventProperties(parameters.getMap(LOGIN_PROPERTIES));
+    String accountId = parameters.hasKey(LOGIN_ACCOUNT_ID) ? parameters.getString(LOGIN_ACCOUNT_ID) : null;
+    String loginId = parameters.hasKey(LOGIN_ID) ? parameters.getString(LOGIN_ID) : null;
+    EventProperties eventProperties = parameters.hasKey(LOGIN_PROPERTIES) ? convertToEventProperties(parameters.getMap(LOGIN_PROPERTIES)) : null;
 
     IncogniaTrial.trackLoginSucceeded(accountId, loginId, eventProperties);
   }
 
   @ReactMethod
   public void trackPaymentSent(ReadableMap parameters) {
-    String transactionId = parameters.getString(TRANSACTION_ID);
-    Set<TransactionAddress> transactionAddresses = convertTransactionAddressReadableArrayToSet(parameters.getArray(TRANSACTION_ADDRESSES));
-    EventProperties eventProperties = convertToEventProperties(parameters.getMap(TRANSACTION_PROPERTIES));
+    String transactionId = parameters.hasKey(TRANSACTION_ID) ? parameters.getString(TRANSACTION_ID) : null;
+    Set<TransactionAddress> transactionAddresses = parameters.hasKey(TRANSACTION_ADDRESSES) ? convertTransactionAddressReadableArrayToSet(parameters.getArray(TRANSACTION_ADDRESSES)) : null;
+    EventProperties eventProperties = parameters.hasKey(TRANSACTION_PROPERTIES) ? convertToEventProperties(parameters.getMap(TRANSACTION_PROPERTIES)) : null;
 
     IncogniaTrial.trackPaymentSent(transactionId, eventProperties, transactionAddresses);
   }
@@ -283,7 +283,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
       return null;
     }
 
-    Locale locale = localeFromString(map.getString(ADDRESS_LOCALE_KEY));
+    Locale locale = map.hasKey(ADDRESS_LOCALE_KEY) ? localeFromString(map.getString(ADDRESS_LOCALE_KEY)) : null;
     Address address = new Address(locale != null ? locale : new Locale("en", "US"));
 
     if (map.hasKey(ADDRESS_COUNTRY_NAME_KEY)) {
