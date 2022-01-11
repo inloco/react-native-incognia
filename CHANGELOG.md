@@ -1,3 +1,7 @@
+Release 6.3.1
+===
+- Fixes errors thrown on nullable values on older React Native versions
+
 Release 6.3.0
 ===
 - Updates Incognia Android SDK to version 6.3.+
