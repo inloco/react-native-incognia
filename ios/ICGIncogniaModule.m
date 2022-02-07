@@ -190,6 +190,10 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
     return constants;
 }
 
++ (BOOL)requiresMainQueueSetup {
+    return YES;
+}
+
 - (void)fillAddress:(ICGUserAddress *)userAddress addressDict:(NSDictionary *)addressDict {
     if (addressDict == nil) {
         return;
