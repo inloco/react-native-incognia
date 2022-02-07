@@ -1,3 +1,7 @@
+Release 6.3.2
+===
+- Explicitly implements requiresMainQueueSetup on iOS
+
 Release 6.3.1
 ===
 - Fixes errors thrown on nullable values on older React Native versions
