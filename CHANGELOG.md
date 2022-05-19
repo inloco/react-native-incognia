@@ -1,3 +1,8 @@
+Release 6.4.0
+===
+- Updates Incognia Android SDK to version 6.6.+
+- Updates Incognia iOS SDK to version 6.4.+
+
 Release 6.3.2
 ===
 - Explicitly implements requiresMainQueueSetup on iOS
