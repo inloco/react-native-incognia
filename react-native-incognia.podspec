@@ -14,9 +14,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/inloco/react-native-incognia.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm}"
+  s.vendored_frameworks = 'ios/Frameworks/IncogniaBR.xcframework', 'ios/Frameworks/IncogniaCoreBR.xcframework', 'ios/Frameworks/IncogniaTrialBR.xcframework'
 
   s.dependency "React-Core"
-  s.dependency 'IncogniaTrialBR', '~> 6.6.0'
-  s.dependency 'IncogniaBR', '~> 6.6.0'
-  s.dependency 'IncogniaCoreBR', '~> 6.6.0'
 end

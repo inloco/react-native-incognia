@@ -1,0 +1,6 @@
+framework module IncogniaBR {
+  umbrella header "IncogniaBR.h"
+
+  export *
+  module * { export * }
+}
