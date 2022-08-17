@@ -22,7 +22,7 @@ buildscript {
 allprojects {
     repositories {
         flatDir {
-          dirs "$rootDir/../node_modules/react-native/react-native-incognia/libs", "$rootDir/../../android/libs"
+          dirs "$rootDir/../node_modules/react-native-incognia/android/libs", "$rootDir/../../android/libs"
         }
         mavenLocal()
         maven {
