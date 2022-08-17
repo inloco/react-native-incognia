@@ -57,6 +57,9 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation "com.google.android.gms:play-services-ads-identifier:${safeExtGet('googlePlayServicesAdsIdentifierVersion', '17.0.0')}"
     implementation "com.google.android.gms:play-services-location:${safeExtGet('googlePlayServicesLocationVersion', '17.0.0')}"
-    api 'com.incognia:incognia-br:6.8.+'
-    api 'com.incognia:incognia-trial-br:6.8.+'
+//    api 'com.incognia:incognia-br:6.8.+'
+//    api 'com.incognia:incognia-trial-br:6.8.+'
+  api(name:'incognia-core-br-6.8.3', ext:'aar')
+  api(name:'incognia-br-6.8.3', ext:'aar')
+  api(name:'incognia-trial-br-6.8.3', ext:'aar')
 }

@@ -21,6 +21,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {
+          dirs 'libs'
+        }
         mavenLocal()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
@@ -34,6 +37,6 @@ allprojects {
         google()
         jcenter()
         maven { url 'https://www.jitpack.io' }
-        maven { url "https://repo.incognia.com/android/" }
+        //maven { url "https://repo.incognia.com/android/" }
     }
 }
