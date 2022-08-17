@@ -1,3 +1,7 @@
+Release 6.5.0-local
+===
+- Uses local dependencies
+
 Release 6.5.0
 ===
 - Updates Incognia Android SDK to version 6.8.+
