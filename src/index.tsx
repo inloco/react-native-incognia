@@ -75,6 +75,7 @@ type UserAddressType = {
   postalCode?: string;
   latitude?: number;
   longitude?: number;
+  addressLine?: string;
 };
 
 type TransactionAddressType = UserAddressType & {

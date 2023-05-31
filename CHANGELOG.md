@@ -1,3 +1,7 @@
+Release 6.11.0
+===
+- Adds addressLine property to UserAddressType
+
 Release 6.10.0
 ===
 - Updates Incognia Android SDK to version 6.16.+
