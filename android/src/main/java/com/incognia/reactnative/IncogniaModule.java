@@ -57,7 +57,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String ADDRESS_POSTAL_CODE_KEY = "postalCode";
   private static final String ADDRESS_LATITUDE_KEY = "latitude";
   private static final String ADDRESS_LONGITUDE_KEY = "longitude";
-  private static final String ADDRESS_LINE = "address_line";
+  private static final String ADDRESS_LINE = "addressLine";
 
   private static final String SIGNUP_ID = "signupId";
   private static final String SIGNUP_ADDRESS = "signupAddress";

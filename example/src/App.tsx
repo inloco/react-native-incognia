@@ -234,6 +234,8 @@ export default class App extends React.Component {
                       latitude: -8.088109,
                       longitude: -34.883838,
                       type: Incognia.Trial.TransactionAddressTypes.BILLING,
+                      addressLine:
+                        'Av. Engenheiro Antônio de Goes, 300, Pina, Recife, Pernambuco, Brasil',
                     },
                   ],
                   properties: {
