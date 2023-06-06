@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 type IncogniaType = {
   setAccountId(accountId: string): void;
@@ -11,6 +11,7 @@ type IncogniaType = {
   denyConsentTypes(consentTypes: Array<string>): void;
   fetchInstallationId(): Promise<string>;
   setLocationEnabled(enabled: boolean): void;
+  notifyAppInForeground(): void;
   ConsentTypes: ConsentTypesType;
   Trial: IncogniaTrialType;
 };
@@ -102,6 +103,11 @@ export const allowConsentTypes = IncogniaModule.allowConsentTypes;
 export const denyConsentTypes = IncogniaModule.denyConsentTypes;
 export const fetchInstallationId = IncogniaModule.fetchInstallationId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
+export const notifyAppInForeground = () => {
+  if (Platform.OS === 'android') {
+    IncogniaModule.notifyAppInForeground();
+  }
+};
 
 export const ConsentTypes: ConsentTypesType = {
   ADDRESS_VALIDATION: IncogniaModule.CONSENT_TYPE_ADDRESS_VALIDATION,
@@ -136,6 +142,7 @@ export default {
   denyConsentTypes,
   fetchInstallationId,
   setLocationEnabled,
+  notifyAppInForeground,
   Trial,
   ConsentTypes,
 } as IncogniaType;

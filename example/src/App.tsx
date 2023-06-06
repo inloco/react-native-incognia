@@ -248,6 +248,13 @@ export default class App extends React.Component {
               }
             />
           </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Notify app in foreground"
+              onPress={() => Incognia.notifyAppInForeground()}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
