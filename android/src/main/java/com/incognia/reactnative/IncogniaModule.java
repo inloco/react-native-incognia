@@ -230,6 +230,11 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     IncogniaTrial.trackPaymentSent(transactionId, eventProperties, transactionAddresses);
   }
 
+  @ReactMethod
+  public void notifyAppInForeground() {
+    Incognia.notifyAppInForeground();
+  }
+
   @Override
   public Map<String, Object> getConstants() {
     final Map<String, Object> constants = new HashMap<>();

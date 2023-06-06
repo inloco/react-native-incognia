@@ -1,3 +1,8 @@
+Release 6.12.0
+===
+- Updates Incognia Android SDK to version 6.18.+
+- Adds notifyAppInForeground method
+
 Release 6.11.0
 ===
 - Adds addressLine property to UserAddressType
