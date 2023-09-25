@@ -1,6 +1,6 @@
 Release 6.14.0
 ===
-- Updates semver and word-wrap depencies to solve dependabot issues
+- Updates semver and word-wrap dependencies to solve dependabot issues
 
 Release 6.13.0
 ===
