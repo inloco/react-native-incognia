@@ -400,10 +400,16 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/IncogniaBR/IncogniaBR.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/IncogniaCoreBR/IncogniaCoreBR.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/IncogniaTrialBR/IncogniaTrialBR.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IncogniaBR.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IncogniaCoreBR.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/IncogniaTrialBR.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
