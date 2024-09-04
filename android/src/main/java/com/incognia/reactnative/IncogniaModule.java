@@ -127,6 +127,21 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void generateRequestToken(final Promise promise) {
+    Incognia.generateRequestToken(new IncogniaListener<String>() {
+      @Override
+      public void onResult(Result<String> result) {
+        if (result.isSuccessful()) {
+          String requestToken = result.getResult();
+          promise.resolve(requestToken);
+        } else {
+          promise.reject(new Exception("Error while generating a request token."));
+        }
+      }
+    });
+  }
+
+  @ReactMethod
   public void requestPrivacyConsent(final ReadableMap consentDialogOptionsMap, final Promise promise) {
     ConsentDialogOptions.Builder consentDialogOptions = new ConsentDialogOptions.Builder(getCurrentActivity());
 

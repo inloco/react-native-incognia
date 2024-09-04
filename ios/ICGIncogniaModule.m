@@ -175,6 +175,16 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
     [ICGIncogniaTrial trackPaymentSentWithId:transactionId eventProperties:properties transactionAddresses:transactionAddresses];
 }
 
+RCT_EXPORT_METHOD(generateRequestToken:(RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject) {
+    [ICGIncognia generateRequestToken:^(NSString *requestToken) {
+        if (resolve && requestToken) {
+            resolve(requestToken);
+        } else {
+            reject(nil, @"Incognia: error while generating a request token", nil);
+        }
+    }];
+}
+
 - (NSDictionary *)constantsToExport {
     NSMutableDictionary *constants = [[NSMutableDictionary alloc] init];
 

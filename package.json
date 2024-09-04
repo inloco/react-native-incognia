@@ -1,6 +1,6 @@
 {
   "name": "react-native-incognia",
-  "version": "6.18.0",
+  "version": "6.19.0",
   "description": "Incognia React Native Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -27,7 +27,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "prepare": "bob build",
     "release": "release-it --no-increment",
-    "example": "yarn --cwd example",
+    "example": "export SET NODE_OPTIONS=--openssl-legacy-provider && yarn --cwd example",
     "pods": "cd example && pod-install --quiet",
     "bootstrap": "yarn example && yarn && yarn pods"
   },

@@ -1,3 +1,9 @@
+Release 6.19.0
+===
+- Updates Incognia Android SDK to version 6.26.+
+- Updates Incognia iOS SDK to version 6.17.+
+- Adds generateRequestToken method
+
 Release 6.18.0
 ===
 - Updates Incognia Android SDK to version 6.25.+
