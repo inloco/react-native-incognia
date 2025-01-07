@@ -1,15 +1,8 @@
 buildscript {
-    configurations.classpath {
-        resolutionStrategy.activateDependencyLocking()
-    }
     if (project == rootProject) {
         repositories {
             google()
             jcenter()
-        }
-
-        dependencyLocking {
-            lockAllConfigurations()
         }
 
         dependencies {
@@ -57,10 +50,6 @@ repositories {
     }
     google()
     jcenter()
-}
-
-dependencyLocking {
-    lockAllConfigurations()
 }
 
 dependencies {

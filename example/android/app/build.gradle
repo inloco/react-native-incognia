@@ -1,11 +1,5 @@
 import com.android.build.OutputFile
 
-buildscript {
-    configurations.classpath {
-        resolutionStrategy.activateDependencyLocking()
-    }
-}
-
 apply plugin: "com.android.application"
 
 apply plugin: "org.jetbrains.kotlin.android"
@@ -118,10 +112,6 @@ android {
         }
     }
 }
-
-// dependencyLocking {
-//     lockAllConfigurations()
-// }
 
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
