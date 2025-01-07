@@ -1,6 +1,10 @@
 package com.incognia.reactnative.example;
 
 import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
+
+import java.util.Objects;
 
 public class MainActivity extends ReactActivity {
 
@@ -11,5 +15,10 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "IncogniaExample";
+  }
+
+  @Override
+  public ReactActivityDelegate createReactActivityDelegate() {
+    return new DefaultReactActivityDelegate(this, Objects.requireNonNull(getMainComponentName()), true);
   }
 }
