@@ -1256,7 +1256,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-incognia (6.19.0):
+  - react-native-incognia (6.20.0):
     - IncogniaBR (~> 6.17.0)
     - IncogniaCoreBR (~> 6.17.0)
     - IncogniaTrialBR (~> 6.17.0)
@@ -1797,7 +1797,7 @@ SPEC CHECKSUMS:
   React-logger: 2c393ba3d92c733db9979116ff61023b8ebe6d31
   React-Mapbuffer: e086ffb0c143c96e19fa114bef0ff27bab208dff
   React-microtasksnativemodule: 8e528efbba69994a8cb107b4698d028430e80f25
-  react-native-incognia: 815a613ba3b3b51ac7e0a2f4cc18d70c59a0a21d
+  react-native-incognia: 333edbcf3d5d9ab5454b466038d63aa8532a52e1
   React-nativeconfig: 2199ff468fce8b95d1776d9cea31d35076fe7e48
   React-NativeModulesApple: c90010b6d0dd192bfe2aa92485ac4e58ccae8e27
   React-perflogger: 1991337a4cc9bcdbf2ecac52e827a3c1533064cf
