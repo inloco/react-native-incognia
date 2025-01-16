@@ -1,3 +1,7 @@
+Release 6.20.0
+===
+- Updates Incognia Android SDK to version 6.28.+
+
 Release 6.19.0
 ===
 - Updates Incognia Android SDK to version 6.26.+

@@ -49,18 +49,6 @@ To edit the Objective-C files, open `example/ios/IncogniaExample.xcworkspace` in
 
 To edit the Java files, open `example/android` in Android studio and find the source files at `reactnativeincognia` under `Android`.
 
-### Android dependency management
-
-The sample project and the android folder use [Gradle Lockfile](https://docs.gradle.org/current/userguide/dependency_locking.html)
-for dependency locking. If you want to update the dependencies, first update the corresponding dependency in any `build.gradle` file
-and then run the following command:
-
-```bash
-make update-dependencies
-```
-
-The command will update the dependencies and the corresponding lock file.
-
 ### Commit message convention
 
 We follow the [conventional commits specification](https://www.conventionalcommits.org/en) for our commit messages:
