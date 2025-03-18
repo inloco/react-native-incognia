@@ -1,6 +1,6 @@
 {
   "name": "react-native-incognia",
-  "version": "6.20.0",
+  "version": "6.21.0",
   "description": "Incognia React Native Library",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
