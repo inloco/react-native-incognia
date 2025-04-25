@@ -13,6 +13,7 @@ type IncogniaType = {
   setLocationEnabled(enabled: boolean): void;
   notifyAppInForeground(): void;
   generateRequestToken(): Promise<string>;
+  refreshLocation(): void;
   ConsentTypes: ConsentTypesType;
   Trial: IncogniaTrialType;
 };
@@ -110,6 +111,7 @@ export const notifyAppInForeground = () => {
     IncogniaModule.notifyAppInForeground();
   }
 };
+export const refreshLocation = IncogniaModule.refreshLocation;
 
 export const ConsentTypes: ConsentTypesType = {
   ADDRESS_VALIDATION: IncogniaModule.CONSENT_TYPE_ADDRESS_VALIDATION,
@@ -146,6 +148,7 @@ export default {
   setLocationEnabled,
   notifyAppInForeground,
   generateRequestToken,
+  refreshLocation,
   Trial,
   ConsentTypes,
 } as IncogniaType;
