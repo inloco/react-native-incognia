@@ -250,6 +250,11 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     Incognia.notifyAppInForeground();
   }
 
+  @ReactMethod
+  public void refreshLocation() {
+    Incognia.refreshLocation();
+  }
+
   @Override
   public Map<String, Object> getConstants() {
     final Map<String, Object> constants = new HashMap<>();

@@ -185,6 +185,10 @@ RCT_EXPORT_METHOD(generateRequestToken:(RCTPromiseResolveBlock)resolve withRejec
     }];
 }
 
+RCT_EXPORT_METHOD(refreshLocation) {
+    [ICGIncognia refreshLocation];
+}
+
 - (NSDictionary *)constantsToExport {
     NSMutableDictionary *constants = [[NSMutableDictionary alloc] init];
 

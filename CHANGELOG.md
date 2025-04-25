@@ -1,3 +1,7 @@
+Release 6.22.0
+===
+- Adds refreshLocation method
+
 Release 6.21.0
 ===
 - Updates Incognia Android SDK to version 6.31.+

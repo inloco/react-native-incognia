@@ -266,6 +266,13 @@ export default class App extends React.Component {
               onPress={() => Incognia.notifyAppInForeground()}
             />
           </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Refresh location"
+              onPress={() => Incognia.refreshLocation()}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
