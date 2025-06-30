@@ -19,8 +19,8 @@
 		79E5AAF726CAC7E500689B7E /* IncogniaOptions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79E5AAF626CAC7E500689B7E /* IncogniaOptions.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		83F9C16F74A405D6CA6E85D4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 56048D2C0D4C08A9F7B46B59 /* PrivacyInfo.xcprivacy */; };
+		8DA26D1C85FC9C2E34494942 /* libPods-IncogniaExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C95CE7CE6EAB4B535CA04959 /* libPods-IncogniaExample.a */; };
 		B2852A457898E51A7A3DB602 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 56048D2C0D4C08A9F7B46B59 /* PrivacyInfo.xcprivacy */; };
-		BBCF336EF1C97844C3F59D86 /* libPods-IncogniaExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABE81C8C2DB3AEF9E9BBE8C /* libPods-IncogniaExample.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,15 +51,15 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = IncogniaExample/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = IncogniaExample/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = IncogniaExample/main.m; sourceTree = "<group>"; };
-		1ABE81C8C2DB3AEF9E9BBE8C /* libPods-IncogniaExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IncogniaExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* IncogniaExample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IncogniaExample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* IncogniaExample-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "IncogniaExample-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4EE139DA25563BDF1897B43E /* Pods-IncogniaExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncogniaExample.release.xcconfig"; path = "Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample.release.xcconfig"; sourceTree = "<group>"; };
 		53942A5E28EF57A5007715D4 /* libswiftWebKit.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libswiftWebKit.tbd; path = usr/lib/swift/libswiftWebKit.tbd; sourceTree = SDKROOT; };
 		56048D2C0D4C08A9F7B46B59 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = IncogniaExample/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		6779B0F3163F31D91724B79C /* Pods-IncogniaExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncogniaExample.debug.xcconfig"; path = "Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample.debug.xcconfig"; sourceTree = "<group>"; };
+		698251A126098933997B3883 /* Pods-IncogniaExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncogniaExample.debug.xcconfig"; path = "Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample.debug.xcconfig"; sourceTree = "<group>"; };
 		79E5AAF626CAC7E500689B7E /* IncogniaOptions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IncogniaOptions.plist; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = IncogniaExample/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C95CE7CE6EAB4B535CA04959 /* libPods-IncogniaExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IncogniaExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3219C8B880E299CD9AC65B3 /* Pods-IncogniaExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IncogniaExample.release.xcconfig"; path = "Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -77,7 +77,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53942A5F28EF57A5007715D4 /* libswiftWebKit.tbd in Frameworks */,
-				BBCF336EF1C97844C3F59D86 /* libPods-IncogniaExample.a in Frameworks */,
+				8DA26D1C85FC9C2E34494942 /* libPods-IncogniaExample.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +137,7 @@
 				53942A5E28EF57A5007715D4 /* libswiftWebKit.tbd */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				1ABE81C8C2DB3AEF9E9BBE8C /* libPods-IncogniaExample.a */,
+				C95CE7CE6EAB4B535CA04959 /* libPods-IncogniaExample.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,8 +178,8 @@
 		87F5E0877E27F4B43E613748 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6779B0F3163F31D91724B79C /* Pods-IncogniaExample.debug.xcconfig */,
-				4EE139DA25563BDF1897B43E /* Pods-IncogniaExample.release.xcconfig */,
+				698251A126098933997B3883 /* Pods-IncogniaExample.debug.xcconfig */,
+				D3219C8B880E299CD9AC65B3 /* Pods-IncogniaExample.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -209,14 +209,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "IncogniaExample" */;
 			buildPhases = (
-				2C1AB6A25A9DE6F6EEDC678C /* [CP] Check Pods Manifest.lock */,
+				1139D47C135AD8E06B981DDC /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				E82E6B4581E18F1F7A571E34 /* [CP] Embed Pods Frameworks */,
-				C42CBBD5548593701827B8A4 /* [CP] Copy Pods Resources */,
+				2680CE459461915BAE1619B0 /* [CP] Embed Pods Frameworks */,
+				217B634688909DCE0C20774C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -363,7 +363,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		2C1AB6A25A9DE6F6EEDC678C /* [CP] Check Pods Manifest.lock */ = {
+		1139D47C135AD8E06B981DDC /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -385,21 +385,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		C42CBBD5548593701827B8A4 /* [CP] Copy Pods Resources */ = {
+		217B634688909DCE0C20774C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,7 +417,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E82E6B4581E18F1F7A571E34 /* [CP] Embed Pods Frameworks */ = {
+		2680CE459461915BAE1619B0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,6 +434,20 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IncogniaExample/Pods-IncogniaExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -591,7 +591,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6779B0F3163F31D91724B79C /* Pods-IncogniaExample.debug.xcconfig */;
+			baseConfigurationReference = 698251A126098933997B3883 /* Pods-IncogniaExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -618,7 +618,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EE139DA25563BDF1897B43E /* Pods-IncogniaExample.release.xcconfig */;
+			baseConfigurationReference = D3219C8B880E299CD9AC65B3 /* Pods-IncogniaExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
