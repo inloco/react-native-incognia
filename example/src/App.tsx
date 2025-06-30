@@ -163,6 +163,18 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
+              title="Generate Unique Request Token"
+              onPress={async () =>
+                Alert.alert(
+                  'RequestToken: ' +
+                    (await Incognia.generateUniqueRequestToken())
+                )
+              }
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
               title="Set location enabled"
               onPress={() => Incognia.setLocationEnabled(true)}
             />

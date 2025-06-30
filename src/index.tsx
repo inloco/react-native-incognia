@@ -13,6 +13,7 @@ type IncogniaType = {
   setLocationEnabled(enabled: boolean): void;
   notifyAppInForeground(): void;
   generateRequestToken(): Promise<string>;
+  generateUniqueRequestToken(): Promise<string>;
   refreshLocation(): void;
   ConsentTypes: ConsentTypesType;
   Trial: IncogniaTrialType;
@@ -106,6 +107,8 @@ export const denyConsentTypes = IncogniaModule.denyConsentTypes;
 export const fetchInstallationId = IncogniaModule.fetchInstallationId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
 export const generateRequestToken = IncogniaModule.generateRequestToken;
+export const generateUniqueRequestToken =
+  IncogniaModule.generateUniqueRequestToken;
 export const notifyAppInForeground = () => {
   if (Platform.OS === 'android') {
     IncogniaModule.notifyAppInForeground();
@@ -148,6 +151,7 @@ export default {
   setLocationEnabled,
   notifyAppInForeground,
   generateRequestToken,
+  generateUniqueRequestToken,
   refreshLocation,
   Trial,
   ConsentTypes,

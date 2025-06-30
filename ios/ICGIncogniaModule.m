@@ -185,6 +185,16 @@ RCT_EXPORT_METHOD(generateRequestToken:(RCTPromiseResolveBlock)resolve withRejec
     }];
 }
 
+RCT_EXPORT_METHOD(generateUniqueRequestToken:(RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject) {
+    [ICGIncognia generateUniqueRequestToken:^(NSString *requestToken) {
+        if (resolve && requestToken) {
+            resolve(requestToken);
+        } else {
+            reject(nil, @"Incognia: error while generating a unique request token", nil);
+        }
+    }];
+}
+
 RCT_EXPORT_METHOD(refreshLocation) {
     [ICGIncognia refreshLocation];
 }
