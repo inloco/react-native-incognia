@@ -55,121 +55,12 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
-              title="Track event"
-              onPress={() =>
-                Incognia.trackEvent({
-                  eventName: 'rn-event-name',
-                  eventProperties: {
-                    boolParam: true,
-                    intParam: 1,
-                    floatParam: 0.3,
-                    stringParam: 'param',
-                  },
-                })
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Track localized event"
-              onPress={() =>
-                Incognia.trackLocalizedEvent({
-                  eventName: 'rn-localized-event-name',
-                  eventProperties: {
-                    boolParam: false,
-                    intParam: 2,
-                    floatParam: 0.5,
-                    stringParam: 'param',
-                  },
-                })
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Request privacy consent dialog"
-              onPress={() =>
-                Incognia.requestPrivacyConsent({
-                  dialogTitle: 'Title text',
-                  dialogMessage: 'Message text',
-                  dialogAcceptText: 'Accept',
-                  dialogDenyText: 'Deny',
-                  consentTypes: Incognia.ConsentTypes.ALL,
-                }).then((data) => {
-                  Alert.alert(
-                    'Privacy consent request result: ' + JSON.stringify(data)
-                  );
-                })
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Check consent"
-              onPress={() =>
-                Incognia.checkConsent(Incognia.ConsentTypes.ALL).then(
-                  (data) => {
-                    Alert.alert(
-                      'Privacy consent check result: ' + JSON.stringify(data)
-                    );
-                  }
-                )
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Allow consent types"
-              onPress={() =>
-                Incognia.allowConsentTypes(Incognia.ConsentTypes.ALL)
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Deny consent types"
-              onPress={() =>
-                Incognia.denyConsentTypes(Incognia.ConsentTypes.ALL)
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Fetch installation id"
-              onPress={async () =>
-                Alert.alert(
-                  'InstallationId: ' + (await Incognia.fetchInstallationId())
-                )
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
               title="Generate Request Token"
-              onPress={async () =>
-                Alert.alert(
-                  'RequestToken: ' + (await Incognia.generateRequestToken())
-                )
-              }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Generate Unique Request Token"
-              onPress={async () =>
-                Alert.alert(
-                  'RequestToken: ' +
-                    (await Incognia.generateUniqueRequestToken())
-                )
-              }
+              onPress={async () => {
+                let requestToken = await Incognia.generateRequestToken();
+                Alert.alert('RequestToken', requestToken);
+                console.log('RequestToken: ', requestToken);
+              }}
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -189,30 +80,32 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
-              title="Track signup sent"
+              title="Send custom event"
               onPress={() =>
-                Incognia.Trial.trackSignupSent({
-                  signupId: 'rn-signup-id',
-                  signupAddress: {
-                    locale: 'pt-BR',
-                    countryName: 'Brasil',
-                    countryCode: 'BR',
-                    adminArea: 'Pernambuco',
-                    subAdminArea: 'Recife',
-                    locality: 'Recife',
-                    subLocality: 'Pina',
-                    thoroughfare: 'Av. Engenheiro Antônio de Goes',
-                    subThoroughfare: '300',
-                    postalCode: '51110-100',
-                    latitude: -8.088109,
-                    longitude: -34.883838,
+                Incognia.sendCustomEvent({
+                  accountId: 'rn-custom-account-id',
+                  externalId: 'rn-custom-external-id',
+                  address: {
+                    locale: 'en-US',
+                    countryName: 'United States',
+                    countryCode: 'US',
+                    state: 'New York',
+                    city: 'New York City',
+                    neighborhood: 'Manhattan',
+                    number: '350',
+                    street: 'Fifth Avenue',
+                    postalCode: '10118',
+                    latitude: 40.748817,
+                    longitude: -73.985428,
                   },
+                  tag: 'rn-tag',
                   properties: {
                     boolParam: false,
                     intParam: 2,
                     floatParam: 0.5,
                     stringParam: 'param',
                   },
+                  status: 'rn-success',
                 })
               }
             />
@@ -220,17 +113,32 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
-              title="Track login succeeded"
+              title="Send onboarding event"
               onPress={() =>
-                Incognia.Trial.trackLoginSucceeded({
-                  accountId: 'rn-account-id',
-                  loginId: 'rn-login-id',
+                Incognia.sendOnboardingEvent({
+                  accountId: 'rn-onboardung-account-id',
+                  externalId: 'rn-onboarding-external-id',
+                  address: {
+                    locale: 'en-US',
+                    countryName: 'United States',
+                    countryCode: 'US',
+                    state: 'New York',
+                    city: 'New York City',
+                    neighborhood: 'Manhattan',
+                    number: '350',
+                    street: 'Fifth Avenue',
+                    postalCode: '10118',
+                    latitude: 40.748817,
+                    longitude: -73.985428,
+                  },
+                  tag: 'rn-tag',
                   properties: {
                     boolParam: false,
                     intParam: 2,
                     floatParam: 0.5,
                     stringParam: 'param',
                   },
+                  status: 'rn-success',
                 })
               }
             />
@@ -238,51 +146,119 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
-              title="Track payment sent"
+              title="Send login event"
               onPress={() =>
-                Incognia.Trial.trackPaymentSent({
-                  transactionId: 'rn-transaction-id',
-                  transactionAddresses: [
+                Incognia.sendLoginEvent({
+                  accountId: 'rn-login-account-id',
+                  externalId: 'rn-login-external-id',
+                  location: {
+                    latitude: 40.748817,
+                    longitude: -73.985428,
+                    timestamp: 16489293979,
+                  },
+                  tag: 'rn-tag',
+                  properties: {
+                    boolParam: false,
+                    intParam: 2,
+                    floatParam: 0.5,
+                    stringParam: 'param',
+                  },
+                  status: 'rn-success',
+                })
+              }
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Send payment event"
+              onPress={() =>
+                Incognia.sendPaymentEvent({
+                  accountId: 'rn-payment-account-id',
+                  externalId: 'rn-payment-external-id',
+                  location: {
+                    latitude: 40.748817,
+                    longitude: -73.985428,
+                    timestamp: 16489293979,
+                  },
+                  addresses: [
                     {
-                      locale: 'pt-BR',
-                      countryName: 'Brasil',
-                      countryCode: 'BR',
-                      adminArea: 'Pernambuco',
-                      subAdminArea: 'Recife',
-                      locality: 'Recife',
-                      subLocality: 'Pina',
-                      thoroughfare: 'Av. Engenheiro Antônio de Goes',
-                      subThoroughfare: '300',
-                      postalCode: '51110-100',
-                      latitude: -8.088109,
-                      longitude: -34.883838,
-                      type: Incognia.Trial.TransactionAddressTypes.BILLING,
-                      addressLine:
-                        'Av. Engenheiro Antônio de Goes, 300, Pina, Recife, Pernambuco, Brasil',
+                      type: Incognia.PaymentAddressTypes.BILLING,
+                      locale: 'en-US',
+                      countryName: 'United States',
+                      countryCode: 'US',
+                      state: 'New York',
+                      city: 'New York City',
+                      neighborhood: 'Manhattan',
+                      number: '350',
+                      street: 'Fifth Avenue',
+                      postalCode: '10118',
+                      latitude: 40.748817,
+                      longitude: -73.985428,
+                    },
+                    {
+                      type: Incognia.PaymentAddressTypes.SHIPPING,
+                      locale: 'en-US',
+                      countryName: 'United States',
+                      countryCode: 'US',
+                      state: 'New York',
+                      city: 'New York City',
+                      neighborhood: 'Manhattan',
+                      number: '350',
+                      street: 'Fifth Avenue',
+                      postalCode: '10118',
+                      latitude: 40.748817,
+                      longitude: -73.985428,
                     },
                   ],
+                  paymentValue: {
+                    amount: 100.0,
+                    currency: 'USD',
+                    installments: 1,
+                    discountAmount: 10.0,
+                  },
+                  paymentCoupon: {
+                    type: Incognia.PaymentCouponTypes.PERCENT_OFF,
+                    value: 10,
+                    maxDiscount: 10.0,
+                    id: 'rn-coupon-id',
+                    name: 'rn-coupon-name',
+                  },
+                  paymentMethods: [
+                    {
+                      type: Incognia.PaymentMethodTypes.CREDIT_CARD,
+                      identifier: 'rn-credit-card-id',
+                      brand: Incognia.PaymentMethodBrands.VISA,
+                      creditCardInfo: {
+                        bin: '123456',
+                        lastFourDigits: '7890',
+                        expiryMonth: '11',
+                        expiryYear: '2023',
+                      },
+                    },
+                    {
+                      type: Incognia.PaymentMethodTypes.DEBIT_CARD,
+                      identifier: 'rn-debit-card-id',
+                      brand: Incognia.PaymentMethodBrands.MASTERCARD,
+                      debitCardInfo: {
+                        bin: '123456',
+                        lastFourDigits: '7890',
+                        expiryMonth: '11',
+                        expiryYear: '2023',
+                      },
+                    },
+                  ],
+                  storeId: 'rn-store-id',
+                  tag: 'rn-tag',
                   properties: {
                     boolParam: false,
                     intParam: 2,
                     floatParam: 0.5,
                     stringParam: 'param',
                   },
+                  status: 'rn-success',
                 })
               }
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Notify app in foreground"
-              onPress={() => Incognia.notifyAppInForeground()}
-            />
-          </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              color={color}
-              title="Refresh location"
-              onPress={() => Incognia.refreshLocation()}
             />
           </View>
         </ScrollView>
