@@ -2,6 +2,16 @@
 
 This is the repository for the Incognia React Native module. It exposes both Incognia and IncogniaTrial functionality to React Native apps.
 
+## First Time Steps
+
+- Access the [Credentials](https://dash.incognia.com/global-av-demo/credentials/sdk) page and copy the `global-av-demo-sdk-credentials-react-native` value
+- Check if you have a `gradle.properties` file on your `~/.gradle` folder. If there is no such file, create one: `touch ~/.gradle/gradle.properties`
+- On your `~/.gradle/gradle.properties` file, write:
+
+```bash
+    ICG_RN_ACCESS_TOKEN=<copied_access_token>
+```
+
 ## Development workflow
 
 To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
