@@ -55,8 +55,8 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation "com.google.android.gms:play-services-ads-identifier:${safeExtGet('googlePlayServicesAdsIdentifierVersion', '17.0.0')}"
-    implementation "com.google.android.gms:play-services-location:${safeExtGet('googlePlayServicesLocationVersion', '17.0.0')}"
-    api 'com.incognia:incognia-br:6.34.+'
-    api 'com.incognia:incognia-trial-br:6.34.+'
+    implementation "com.google.android.gms:play-services-ads-identifier:${safeExtGet('googlePlayServicesAdsIdentifierVersion', '18.0.1')}"
+    implementation "com.google.android.gms:play-services-location:${safeExtGet('googlePlayServicesLocationVersion', '21.0.1')}"
+    implementation "com.google.android.gms:play-services-appset:${safeExtGet('googlePlayServicesAppsetVersion', '16.0.2')}"
+    api 'com.incognia:incognia:7.4.+'
 }
