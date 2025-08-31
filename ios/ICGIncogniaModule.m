@@ -12,6 +12,10 @@
 
 RCT_EXPORT_MODULE(IncogniaModule)
 
+RCT_EXPORT_METHOD(initSdk) {
+    [ICGIncognia initSdk];
+}
+
 RCT_EXPORT_METHOD(setAccountId:(NSString *)accountId) {
     [ICGIncognia setAccountId:accountId];
 }

@@ -1,6 +1,7 @@
 import { NativeModules, Platform } from 'react-native';
 
 type IncogniaType = {
+  init(): void;
   setAccountId(accountId: string): void;
   clearAccountId(): void;
   setLocationEnabled(enabled: boolean): void;
@@ -151,6 +152,7 @@ const transformToStringMap = (
 
 const { IncogniaModule } = NativeModules;
 
+export const init = IncogniaModule.initSdk;
 export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
@@ -372,6 +374,7 @@ export const PaymentMethodBrands: PaymentMethodBrandsType = {
 };
 
 export default {
+  init,
   setAccountId,
   clearAccountId,
   setLocationEnabled,

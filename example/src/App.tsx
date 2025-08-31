@@ -20,6 +20,8 @@ import Incognia from 'react-native-incognia';
 
 export default class App extends React.Component {
   componentDidMount() {
+    Incognia.init();
+
     if (Platform.OS === 'ios') {
       requestMultiple([
         PERMISSIONS.IOS.LOCATION_ALWAYS,
