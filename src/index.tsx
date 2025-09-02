@@ -1,7 +1,8 @@
 import { NativeModules, Platform } from 'react-native';
 
 type IncogniaType = {
-  init(): void;
+  initSdk(): void;
+  initSdkWithOptions(options: IncogniaOptionsType): void;
   setAccountId(accountId: string): void;
   clearAccountId(): void;
   setLocationEnabled(enabled: boolean): void;
@@ -14,6 +15,25 @@ type IncogniaType = {
   PaymentCouponTypes: PaymentCouponTypesType;
   PaymentMethodTypes: PaymentMethodTypesType;
   PaymentMethodBrands: PaymentMethodBrandsType;
+};
+
+type IncogniaOptionsType = {
+  androidOptions: AndroidOptionsType;
+  iosOptions: IOSOptionsType;
+};
+
+type AndroidOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  installedAppsCollectionEnabled?: boolean;
+};
+
+type IOSOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  urlSchemesCheckEnabled?: boolean;
 };
 
 type PaymentAddressTypesType = {
@@ -152,7 +172,16 @@ const transformToStringMap = (
 
 const { IncogniaModule } = NativeModules;
 
-export const init = IncogniaModule.initSdk;
+export const initSdk = IncogniaModule.initSdk;
+
+export const initSdkWithOptions = (params: IncogniaOptionsType) => {
+  if (Platform.OS === 'ios') {
+    IncogniaModule.initSdkWithOptions(params.iosOptions);
+  } else {
+    IncogniaModule.initSdkWithOptions(params.androidOptions);
+  }
+};
+
 export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
@@ -374,7 +403,8 @@ export const PaymentMethodBrands: PaymentMethodBrandsType = {
 };
 
 export default {
-  init,
+  initSdk,
+  initSdkWithOptions,
   setAccountId,
   clearAccountId,
   setLocationEnabled,
