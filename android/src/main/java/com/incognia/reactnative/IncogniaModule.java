@@ -114,7 +114,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   public void initSdk() {
     try {
       Application application = (Application) reactContext.getApplicationContext();
-      Incognia.init((Application) getReactApplicationContext().getApplicationContext());
+      Incognia.init(application);
     } catch (Exception e) {
       Log.e(NAME, "Error initializing Incognia SDK: " + e.getMessage(), e);
     }
@@ -124,7 +124,6 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   public void initSdkWithOptions(final ReadableMap optionsParameters) {
     try {
       Application application = (Application) reactContext.getApplicationContext();
-      Incognia.init((Application) getReactApplicationContext().getApplicationContext());
 
       String appId = optionsParameters.hasKey(OPTIONS_APP_ID_KEY) ? optionsParameters.getString(OPTIONS_APP_ID_KEY) : null;
       boolean logEnabled = optionsParameters.hasKey(OPTIONS_LOG_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_LOG_ENABLED_KEY) : false;
