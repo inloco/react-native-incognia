@@ -87,7 +87,7 @@ type OnboardingEventParamsType = {
 type LoginEventParamsType = {
   accountId: string;
   externalId?: string;
-  location?: UserLocationType;
+  location?: EventLocationType;
   tag?: string;
   properties?: { [key: string]: string | number | boolean };
   status?: string;
@@ -96,7 +96,7 @@ type LoginEventParamsType = {
 type PaymentEventParamsType = {
   accountId: string;
   externalId?: string;
-  location?: UserLocationType;
+  location?: EventLocationType;
   addresses?: Array<PaymentAddressType>;
   paymentValue?: PaymentValueType;
   paymentCoupon?: PaymentCouponType;
@@ -107,7 +107,7 @@ type PaymentEventParamsType = {
   status?: string;
 };
 
-type UserLocationType = {
+type EventLocationType = {
   latitude: number;
   longitude: number;
   timestamp?: number;
@@ -151,11 +151,11 @@ type PaymentMethodType = {
   type: string;
   identifier?: string;
   brand?: string;
-  creditCardInfo?: PaymentMethodCardInfoType;
-  debitCardInfo?: PaymentMethodCardInfoType;
+  creditCardInfo?: CardInfoType;
+  debitCardInfo?: CardInfoType;
 };
 
-type PaymentMethodCardInfoType = {
+type CardInfoType = {
   bin: string;
   lastFourDigits: string;
   expiryYear?: string;
