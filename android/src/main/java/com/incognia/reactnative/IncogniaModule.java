@@ -1,17 +1,16 @@
 package com.incognia.reactnative;
 
-import android.location.Address;
+import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
 import com.incognia.CardInfo;
 import com.incognia.CustomEvent;
@@ -19,6 +18,7 @@ import com.incognia.EventAddress;
 import com.incognia.EventLocation;
 import com.incognia.EventProperties;
 import com.incognia.Incognia;
+import com.incognia.IncogniaOptions;
 import com.incognia.LoginEvent;
 import com.incognia.OnboardingEvent;
 import com.incognia.PaymentAddress;
@@ -28,19 +28,23 @@ import com.incognia.PaymentMethod;
 import com.incognia.PaymentValue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 @SuppressWarnings({"unused",
                    "Convert2Lambda"})
 @ReactModule(name = IncogniaModule.NAME)
 public class IncogniaModule extends ReactContextBaseJavaModule {
   public static final String NAME = "IncogniaModule";
-  
+
+  private ReactApplicationContext reactContext;
+
+  private static final String OPTIONS_APP_ID_KEY = "appId";
+  private static final String OPTIONS_LOG_ENABLED_KEY = "logEnabled";
+  private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
+  private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
+
   private static final String EVENT_ACCOUNT_ID = "accountId";
   private static final String EVENT_EXTERNAL_ID = "externalId";
   private static final String EVENT_ADDRESS = "address";
@@ -96,6 +100,8 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
 
   public IncogniaModule(ReactApplicationContext reactContext) {
     super(reactContext);
+
+    this.reactContext = reactContext;
   }
 
   @Override
@@ -104,6 +110,38 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
+  @ReactMethod
+  public void initSdk() {
+    try {
+      Application application = (Application) reactContext.getApplicationContext();
+      Incognia.init(application);
+    } catch (Exception e) {
+      Log.e(NAME, "Error initializing Incognia SDK: " + e.getMessage(), e);
+    }
+  }
+
+  @ReactMethod
+  public void initSdkWithOptions(final ReadableMap optionsParameters) {
+    try {
+      Application application = (Application) reactContext.getApplicationContext();
+
+      String appId = optionsParameters.hasKey(OPTIONS_APP_ID_KEY) ? optionsParameters.getString(OPTIONS_APP_ID_KEY) : null;
+      boolean logEnabled = optionsParameters.hasKey(OPTIONS_LOG_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_LOG_ENABLED_KEY) : false;
+      boolean locationEnabled = optionsParameters.hasKey(OPTIONS_LOCATION_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_LOCATION_ENABLED_KEY) : true;
+      boolean installedAppsCollectionEnabled = optionsParameters.hasKey(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) : false;
+
+      IncogniaOptions options = new IncogniaOptions.Builder()
+        .appId(appId)
+        .logEnabled(logEnabled)
+        .locationEnabled(locationEnabled)
+        .installedAppsCollectionEnabled(installedAppsCollectionEnabled)
+        .build();
+
+      Incognia.init(application, options);
+    } catch (Exception e) {
+      Log.e(NAME, "Error initializing Incognia SDK with options: " + e.getMessage(), e);
+    }
+  }
 
   @ReactMethod
   public void setAccountId(final String accountId) {
@@ -250,12 +288,12 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     }
 
     Double latitude = map.hasKey(LOCATION_LATITUDE_KEY) ? map.getDouble(LOCATION_LATITUDE_KEY) : null;
-    Double longitude = map.hasKey(LOCATION_LONGITUDE_KEY) ? map.getDouble(LOCATION_LONGITUDE_KEY) : null;  
+    Double longitude = map.hasKey(LOCATION_LONGITUDE_KEY) ? map.getDouble(LOCATION_LONGITUDE_KEY) : null;
     Long timestamp = map.hasKey(LOCATION_TIMESTAMP_KEY) ? (long) map.getDouble(LOCATION_TIMESTAMP_KEY) : null;
-    
+
     return new EventLocation(latitude, longitude, timestamp);
   }
-  
+
   private static PaymentValue convertToPaymentValue(ReadableMap map) {
     if (map == null) {
       return null;
@@ -265,14 +303,14 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     String currency = map.hasKey(PAYMENT_VALUE_CURRENCY) ? map.getString(PAYMENT_VALUE_CURRENCY) : null;
     Integer installments = map.hasKey(PAYMENT_VALUE_INSTALLMENTS) ? (int) map.getDouble(PAYMENT_VALUE_INSTALLMENTS) : null;
     Double discountAmount = map.hasKey(PAYMENT_VALUE_DISCOUNT_AMOUNT) ? map.getDouble(PAYMENT_VALUE_DISCOUNT_AMOUNT) : null;
-    
+
     return new PaymentValue.Builder(amount)
       .currency(currency)
       .installments(installments)
       .discountAmount(discountAmount)
       .build();
   }
-  
+
   private static PaymentCoupon convertToPaymentCoupon(ReadableMap map) {
     if (map == null) {
       return null;
@@ -283,7 +321,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     Double maxDiscount = map.hasKey(PAYMENT_COUPON_MAX_DISCOUNT) ? map.getDouble(PAYMENT_COUPON_MAX_DISCOUNT) : null;
     String id = map.hasKey(PAYMENT_COUPON_ID) ? map.getString(PAYMENT_COUPON_ID) : null;
     String name = map.hasKey(PAYMENT_COUPON_NAME) ? map.getString(PAYMENT_COUPON_NAME) : null;
-    
+
     return new PaymentCoupon.Builder()
       .type(type)
       .value(value)
@@ -390,13 +428,13 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     String postalCode = map.hasKey(ADDRESS_POSTAL_CODE_KEY) ? map.getString(ADDRESS_POSTAL_CODE_KEY) : null;
     String addressLine = map.hasKey(ADDRESS_LINE_KEY) ? map.getString(ADDRESS_LINE_KEY) : null;
     Double latitude = map.hasKey(ADDRESS_LATITUDE_KEY) ? map.getDouble(ADDRESS_LATITUDE_KEY) : null;
-    Double longitude = map.hasKey(ADDRESS_LONGITUDE_KEY) ? map.getDouble(ADDRESS_LONGITUDE_KEY) : null;  
+    Double longitude = map.hasKey(ADDRESS_LONGITUDE_KEY) ? map.getDouble(ADDRESS_LONGITUDE_KEY) : null;
 
     Locale locale = map.hasKey(ADDRESS_LOCALE_KEY) ? localeFromString(map.getString(ADDRESS_LOCALE_KEY)) : null;
     if(locale == null && (street != null || addressLine != null)) {
       locale = Locale.getDefault();
     }
-    
+
     return new EventAddress.Builder()
       .locale(locale)
       .countryCode(countryCode)
