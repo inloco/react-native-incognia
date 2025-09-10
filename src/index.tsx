@@ -3,156 +3,385 @@ import { NativeModules, Platform } from 'react-native';
 type IncogniaType = {
   setAccountId(accountId: string): void;
   clearAccountId(): void;
-  trackEvent(params: TrackEventParamsType): void;
-  trackLocalizedEvent(params: TrackEventParamsType): void;
-  requestPrivacyConsent(params: ConsentRequestParamsType): Promise<any>;
-  checkConsent(consentTypes: Array<string>): Promise<any>;
-  allowConsentTypes(consentTypes: Array<string>): void;
-  denyConsentTypes(consentTypes: Array<string>): void;
-  fetchInstallationId(): Promise<string>;
   setLocationEnabled(enabled: boolean): void;
-  notifyAppInForeground(): void;
   generateRequestToken(): Promise<string>;
-  generateUniqueRequestToken(): Promise<string>;
-  refreshLocation(): void;
-  ConsentTypes: ConsentTypesType;
-  Trial: IncogniaTrialType;
+  sendCustomEvent(params: CustomEventParamsType): void;
+  sendOnboardingEvent(params: OnboardingEventParamsType): void;
+  sendLoginEvent(params: LoginEventParamsType): void;
+  sendPaymentEvent(params: PaymentEventParamsType): void;
+  PaymentAddressTypes: PaymentAddressTypesType;
+  PaymentCouponTypes: PaymentCouponTypesType;
+  PaymentMethodTypes: PaymentMethodTypesType;
+  PaymentMethodBrands: PaymentMethodBrandsType;
 };
 
-type IncogniaTrialType = {
-  trackSignupSent(params: TrackSignupParamsType): void;
-  trackLoginSucceeded(params: TrackLoginSucceededParamsType): void;
-  trackPaymentSent(params: TrackPaymentParamsType): void;
-  TransactionAddressTypes: TranscationAddressTypesType;
-};
-
-type ConsentTypesType = {
-  readonly ADDRESS_VALIDATION: string;
-  readonly ADVERTISEMENT: string;
-  readonly ENGAGE: string;
-  readonly EVENTS: string;
-  readonly LOCATION: string;
-  readonly CONTEXT_PROVIDER: string;
-  readonly ALL: Array<string>;
-  readonly NONE: Array<string>;
-};
-
-type TranscationAddressTypesType = {
+type PaymentAddressTypesType = {
   readonly BILLING: string;
   readonly SHIPPING: string;
   readonly HOME: string;
 };
 
-type TrackEventParamsType = {
-  eventName: string;
-  eventProperties?: Object;
+type PaymentCouponTypesType = {
+  readonly PERCENT_OFF: string;
+  readonly FIXED_VALUE: string;
 };
 
-type TrackSignupParamsType = {
-  signupId?: string;
-  signupAddress?: UserAddressType;
-  properties?: Object;
+type PaymentMethodTypesType = {
+  readonly CREDIT_CARD: string;
+  readonly DEBIT_CARD: string;
+  readonly APPLE_PAY: string;
+  readonly GOOGLE_PAY: string;
+  readonly NU_PAY: string;
+  readonly PIX: string;
+  readonly MEAL_VOUCHER: string;
 };
 
-type TrackLoginSucceededParamsType = {
-  loginId?: string;
+type PaymentMethodBrandsType = {
+  readonly VISA: string;
+  readonly MASTERCARD: string;
+  readonly AMERICAN_EXPRESS: string;
+  readonly TARJETA_NARANJA: string;
+  readonly CABAL: string;
+  readonly ARGENCARD: string;
+};
+
+type CustomEventParamsType = {
   accountId?: string;
-  properties?: Object;
+  externalId?: string;
+  address?: EventAddressType;
+  tag?: string;
+  properties?: { [key: string]: string | number | boolean };
+  status?: string;
 };
 
-type TrackPaymentParamsType = {
-  transactionId?: string;
-  transactionAddresses?: Array<TransactionAddressType>;
-  properties?: Object;
+type OnboardingEventParamsType = {
+  accountId?: string;
+  externalId?: string;
+  address?: EventAddressType;
+  tag?: string;
+  properties?: { [key: string]: string | number | boolean };
+  status?: string;
 };
 
-type UserAddressType = {
+type LoginEventParamsType = {
+  accountId: string;
+  externalId?: string;
+  location?: UserLocationType;
+  tag?: string;
+  properties?: { [key: string]: string | number | boolean };
+  status?: string;
+};
+
+type PaymentEventParamsType = {
+  accountId: string;
+  externalId?: string;
+  location?: UserLocationType;
+  addresses?: Array<PaymentAddressType>;
+  paymentValue?: PaymentValueType;
+  paymentCoupon?: PaymentCouponType;
+  paymentMethods?: Array<PaymentMethodType>;
+  storeId?: string;
+  tag?: string;
+  properties?: { [key: string]: string | number | boolean };
+  status?: string;
+};
+
+type UserLocationType = {
+  latitude: number;
+  longitude: number;
+  timestamp?: number;
+};
+
+type EventAddressType = {
   locale?: string;
-  countryName?: string;
   countryCode?: string;
-  adminArea?: string;
-  subAdminArea?: string;
-  locality?: string;
-  subLocality?: string;
-  thoroughfare?: string;
-  subThoroughfare?: string;
+  countryName?: string;
+  state?: string;
+  city?: string;
+  neighborhood?: string;
+  number?: string;
+  street?: string;
   postalCode?: string;
+  addressLine?: string;
   latitude?: number;
   longitude?: number;
-  addressLine?: string;
 };
 
-type TransactionAddressType = UserAddressType & {
+type PaymentAddressType = EventAddressType & {
   type: string;
 };
 
-type ConsentRequestParamsType = {
-  dialogTitle: string;
-  dialogMessage: string;
-  dialogAcceptText: string;
-  dialogDenyText: string;
-  consentTypes: Array<string>;
+type PaymentValueType = {
+  amount: number;
+  currency?: string;
+  installments?: number;
+  discountAmount?: number;
+};
+
+type PaymentCouponType = {
+  type: string;
+  value?: number;
+  maxDiscount?: number;
+  id?: string;
+  name?: string;
+};
+
+type PaymentMethodType = {
+  type: string;
+  identifier?: string;
+  brand?: string;
+  creditCardInfo?: PaymentMethodCardInfoType;
+  debitCardInfo?: PaymentMethodCardInfoType;
+};
+
+type PaymentMethodCardInfoType = {
+  bin: string;
+  lastFourDigits: string;
+  expiryYear?: string;
+  expiryMonth?: string;
+};
+
+const transformToStringMap = (
+  obj: { [key: string]: string | number | boolean } | undefined
+): { [key: string]: string } | undefined => {
+  return obj
+    ? Object.fromEntries(Object.entries(obj).map(([k, v]) => [k, String(v)]))
+    : undefined;
 };
 
 const { IncogniaModule } = NativeModules;
 
 export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
-export const trackEvent = IncogniaModule.trackEvent;
-export const trackLocalizedEvent = IncogniaModule.trackLocalizedEvent;
-export const requestPrivacyConsent = IncogniaModule.requestPrivacyConsent;
-export const checkConsent = IncogniaModule.checkConsent;
-export const allowConsentTypes = IncogniaModule.allowConsentTypes;
-export const denyConsentTypes = IncogniaModule.denyConsentTypes;
-export const fetchInstallationId = IncogniaModule.fetchInstallationId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
 export const generateRequestToken = IncogniaModule.generateRequestToken;
-export const generateUniqueRequestToken =
-  IncogniaModule.generateUniqueRequestToken;
-export const notifyAppInForeground = () => {
-  if (Platform.OS === 'android') {
-    IncogniaModule.notifyAppInForeground();
+
+export const sendCustomEvent = (params: CustomEventParamsType) => {
+  if (Platform.OS === 'ios') {
+    let reactParams = {
+      reactProperties: {
+        account_id: params.accountId,
+        rn_ctm: JSON.stringify({
+          add: {
+            country_name: params.address?.countryName,
+            country_code: params.address?.countryCode,
+            admin_area: params.address?.state,
+            locality: params.address?.city,
+            sub_locality: params.address?.neighborhood,
+            thoroughfare: params.address?.street,
+            sub_thoroughfare: params.address?.number,
+            postal_code: params.address?.postalCode,
+            address_line: params.address?.addressLine,
+            locale: params.address?.locale,
+            latitude: params.address?.latitude,
+            longitude: params.address?.longitude,
+          },
+          base: {
+            ext_id: params.externalId,
+            evnt_tag: params.tag,
+            stts: params.status,
+            prop: transformToStringMap(params.properties),
+          },
+        }),
+      },
+    };
+
+    IncogniaModule.trackLocalizedEvent(reactParams);
+  } else {
+    IncogniaModule.sendCustomEvent(params);
   }
 };
-export const refreshLocation = IncogniaModule.refreshLocation;
 
-export const ConsentTypes: ConsentTypesType = {
-  ADDRESS_VALIDATION: IncogniaModule.CONSENT_TYPE_ADDRESS_VALIDATION,
-  ADVERTISEMENT: IncogniaModule.CONSENT_TYPE_ADVERTISEMENT,
-  ENGAGE: IncogniaModule.CONSENT_TYPE_ENGAGE,
-  EVENTS: IncogniaModule.CONSENT_TYPE_EVENTS,
-  LOCATION: IncogniaModule.CONSENT_TYPE_LOCATION,
-  CONTEXT_PROVIDER: IncogniaModule.CONSENT_TYPE_CONTEXT_PROVIDER,
-  ALL: IncogniaModule.CONSENT_TYPES_ALL,
-  NONE: IncogniaModule.CONSENT_TYPES_NONE,
+export const sendOnboardingEvent = (params: OnboardingEventParamsType) => {
+  if (Platform.OS === 'ios') {
+    let reactParams = {
+      reactProperties: {
+        account_id: params.accountId,
+        rn_onbrd: JSON.stringify({
+          add: {
+            country_name: params.address?.countryName,
+            country_code: params.address?.countryCode,
+            admin_area: params.address?.state,
+            locality: params.address?.city,
+            sub_locality: params.address?.neighborhood,
+            thoroughfare: params.address?.street,
+            sub_thoroughfare: params.address?.number,
+            postal_code: params.address?.postalCode,
+            address_line: params.address?.addressLine,
+            locale: params.address?.locale,
+            latitude: params.address?.latitude,
+            longitude: params.address?.longitude,
+          },
+          base: {
+            evnt_tag: params.tag,
+            stts: params.status,
+            prop: transformToStringMap(params.properties),
+          },
+        }),
+      },
+    };
+
+    IncogniaModule.trackSignupSent(reactParams);
+  } else {
+    IncogniaModule.sendOnboardingEvent(params);
+  }
 };
 
-export const Trial: IncogniaTrialType = {
-  trackSignupSent: IncogniaModule.trackSignupSent,
-  trackLoginSucceeded: IncogniaModule.trackLoginSucceeded,
-  trackPaymentSent: IncogniaModule.trackPaymentSent,
-  TransactionAddressTypes: {
-    BILLING: 'billing',
-    HOME: 'home',
-    SHIPPING: 'shipping',
-  },
+export const sendLoginEvent = (params: LoginEventParamsType) => {
+  if (Platform.OS === 'ios') {
+    let reactParams = {
+      reactProperties: {
+        account_id: params.accountId,
+        rn_lgn: JSON.stringify({
+          loc: {
+            lat: params.location?.latitude,
+            lng: params.location?.longitude,
+            ts: params.location?.timestamp,
+          },
+          base: {
+            evnt_tag: params.tag,
+            stts: params.status,
+            prop: transformToStringMap(params.properties),
+          },
+        }),
+      },
+    };
+
+    IncogniaModule.trackLoginSucceeded(reactParams);
+  } else {
+    IncogniaModule.sendLoginEvent(params);
+  }
+};
+
+export const sendPaymentEvent = (params: PaymentEventParamsType) => {
+  if (Platform.OS === 'ios') {
+    let addresses;
+    if (params.addresses) {
+      addresses = params.addresses.map((address) => ({
+        tp: address.type,
+        add: {
+          country_name: address?.countryName,
+          country_code: address?.countryCode,
+          admin_area: address?.state,
+          locality: address?.city,
+          sub_locality: address?.neighborhood,
+          thoroughfare: address?.street,
+          sub_thoroughfare: address?.number,
+          postal_code: address?.postalCode,
+          address_line: address?.addressLine,
+          locale: address?.locale,
+          latitude: address?.latitude,
+          longitude: address?.longitude,
+        },
+      }));
+    }
+
+    let paymentMethods;
+    if (params.paymentMethods) {
+      paymentMethods = params.paymentMethods.map((method) => ({
+        tp: method.type,
+        id: method.identifier,
+        brnd: method.brand,
+        cc_inf: method.creditCardInfo
+          ? {
+              bin: method.creditCardInfo.bin,
+              lst_fr_dgt: method.creditCardInfo.lastFourDigits,
+              exp_yr: method.creditCardInfo.expiryYear,
+              exp_mnth: method.creditCardInfo.expiryMonth,
+            }
+          : undefined,
+        dc_inf: method.debitCardInfo
+          ? {
+              bin: method.debitCardInfo.bin,
+              lst_fr_dgt: method.debitCardInfo.lastFourDigits,
+              exp_yr: method.debitCardInfo.expiryYear,
+              exp_mnth: method.debitCardInfo.expiryMonth,
+            }
+          : undefined,
+      }));
+    }
+
+    let reactParams = {
+      reactProperties: {
+        account_id: params.accountId,
+        rn_paymnt: JSON.stringify({
+          str_id: params.storeId,
+          add: addresses,
+          val: {
+            amnt: params.paymentValue?.amount,
+            curc: params.paymentValue?.currency,
+            insmts: params.paymentValue?.installments,
+            dc_amnt: params.paymentValue?.discountAmount,
+          },
+          cpn: {
+            tp: params.paymentCoupon?.type,
+            vle: params.paymentCoupon?.value,
+            mx_dsc: params.paymentCoupon?.maxDiscount,
+            id: params.paymentCoupon?.id,
+            nm: params.paymentCoupon?.name,
+          },
+          mthds: paymentMethods,
+          loc: {
+            lat: params.location?.latitude,
+            lng: params.location?.longitude,
+            ts: params.location?.timestamp,
+          },
+          base: {
+            evnt_tag: params.tag,
+            stts: params.status,
+            prop: transformToStringMap(params.properties),
+          },
+        }),
+      },
+    };
+
+    IncogniaModule.trackPaymentSent(reactParams);
+  } else {
+    IncogniaModule.sendPaymentEvent(params);
+  }
+};
+
+export const PaymentAddressTypes: PaymentAddressTypesType = {
+  BILLING: 'billing',
+  HOME: 'home',
+  SHIPPING: 'shipping',
+};
+
+export const PaymentCouponTypes: PaymentCouponTypesType = {
+  PERCENT_OFF: 'percent_off',
+  FIXED_VALUE: 'fixed_value',
+};
+
+export const PaymentMethodTypes: PaymentMethodTypesType = {
+  CREDIT_CARD: 'credit_card',
+  DEBIT_CARD: 'debit_card',
+  APPLE_PAY: 'apple_pay',
+  GOOGLE_PAY: 'google_pay',
+  NU_PAY: 'nu_pay',
+  PIX: 'pix',
+  MEAL_VOUCHER: 'meal_voucher',
+};
+
+export const PaymentMethodBrands: PaymentMethodBrandsType = {
+  VISA: 'visa',
+  MASTERCARD: 'mastercard',
+  AMERICAN_EXPRESS: 'american_express',
+  TARJETA_NARANJA: 'tarjeta_naranja',
+  CABAL: 'cabal_brand',
+  ARGENCARD: 'argencard_brand',
 };
 
 export default {
   setAccountId,
   clearAccountId,
-  trackEvent,
-  trackLocalizedEvent,
-  requestPrivacyConsent,
-  checkConsent,
-  allowConsentTypes,
-  denyConsentTypes,
-  fetchInstallationId,
   setLocationEnabled,
-  notifyAppInForeground,
   generateRequestToken,
-  generateUniqueRequestToken,
-  refreshLocation,
-  Trial,
-  ConsentTypes,
+  sendCustomEvent,
+  sendOnboardingEvent,
+  sendLoginEvent,
+  sendPaymentEvent,
+  PaymentAddressTypes,
+  PaymentCouponTypes,
+  PaymentMethodTypes,
+  PaymentMethodBrands,
 } as IncogniaType;
