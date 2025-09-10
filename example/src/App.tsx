@@ -26,7 +26,7 @@ export default class App extends React.Component {
     Incognia.initSdkWithOptions({
       androidOptions: {
         appId: '7dd3c618-280e-42b7-bd39-1ac302663ed1',
-        logEnabled: true,
+        logEnabled: false,
         locationEnabled: true,
         // installedAppsCollectionEnabled: false,
       },
