@@ -7,12 +7,12 @@ PODS:
   - hermes-engine (0.76.4):
     - hermes-engine/Pre-built (= 0.76.4)
   - hermes-engine/Pre-built (0.76.4)
-  - IncogniaBR (6.21.0):
-    - IncogniaCoreBR (= 6.21.0)
-  - IncogniaCoreBR (6.21.0)
-  - IncogniaTrialBR (6.21.0):
-    - IncogniaBR (= 6.21.0)
-    - IncogniaCoreBR (= 6.21.0)
+  - IncogniaBR (6.23.0):
+    - IncogniaCoreBR (= 6.23.0)
+  - IncogniaCoreBR (6.23.0)
+  - IncogniaTrialBR (6.23.0):
+    - IncogniaBR (= 6.23.0)
+    - IncogniaCoreBR (= 6.23.0)
   - Permission-AppTrackingTransparency (3.0.5):
     - RNPermissions
   - Permission-LocationAccuracy (3.0.5):
@@ -1257,9 +1257,9 @@ PODS:
     - ReactCommon/turbomodule/core
     - Yoga
   - react-native-incognia (7.0.0):
-    - IncogniaBR (~> 6.21.0)
-    - IncogniaCoreBR (~> 6.21.0)
-    - IncogniaTrialBR (~> 6.21.0)
+    - IncogniaBR (~> 6.23.0)
+    - IncogniaCoreBR (~> 6.23.0)
+    - IncogniaTrialBR (~> 6.23.0)
     - React-Core
   - React-nativeconfig (0.76.4)
   - React-NativeModulesApple (0.76.4):
@@ -1761,9 +1761,9 @@ SPEC CHECKSUMS:
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: 8b344d6d97321a706b9861a89e50e6fb04e8f999
-  IncogniaBR: 2710027492645e47f6c1127ad75f13efd5c74821
-  IncogniaCoreBR: dde9e16e68cd2fd88865dcb94d4830524aaeeb19
-  IncogniaTrialBR: 64435103cd60dcfdb7e23c8c8fc73c94b2cb2fcb
+  IncogniaBR: 70aa658877d1743d9bf7d1312199c5f7d9d3f3c5
+  IncogniaCoreBR: b8d3b0371b1b9ec547039b61b0eff4aa236dfa36
+  IncogniaTrialBR: e22baa55256a4d81db37332b86426c141126b20f
   Permission-AppTrackingTransparency: 84266235ece96f555e5588fc0ad90da250467699
   Permission-LocationAccuracy: 533760c86c59cdabe9839d66c781e96c1b7c41b1
   Permission-LocationAlways: f45d230ff6aef38583e894119212a3494bc08db6
@@ -1797,7 +1797,7 @@ SPEC CHECKSUMS:
   React-logger: 09934f68c9c8bf4b427addd641f4cae341564d61
   React-Mapbuffer: 6385e4446caaaa433decaa94f398ad3f593cfc05
   React-microtasksnativemodule: e5e9a87d630359490359f7143215987254af65a8
-  react-native-incognia: 5270f1bb037ebc2a4f2205e7b37b65a9d78359e3
+  react-native-incognia: 6207efeaeaaec5df09a15cfcbf374d11719209b4
   React-nativeconfig: 2199ff468fce8b95d1776d9cea31d35076fe7e48
   React-NativeModulesApple: 3fd0069e45be0a560ed52f57ce8d8c42898f69b8
   React-perflogger: ab4e872853e59282b94df46f17c84d83290579e4
