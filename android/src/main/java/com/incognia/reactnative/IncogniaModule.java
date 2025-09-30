@@ -1,6 +1,8 @@
 package com.incognia.reactnative;
 
+import android.app.Application;
 import android.location.Address;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +22,7 @@ import com.incognia.ConsentTypes;
 import com.incognia.EventProperties;
 import com.incognia.Incognia;
 import com.incognia.IncogniaListener;
+import com.incognia.IncogniaOptions;
 import com.incognia.IncogniaTrial;
 import com.incognia.Result;
 import com.incognia.TransactionAddress;
@@ -72,6 +75,10 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String TRANSACTION_PROPERTIES = "properties";
   private static final String TRANSACTION_ADDRESS_TYPE = "type";
 
+  private static final String OPTIONS_APP_ID_KEY = "appId";
+  private static final String OPTIONS_LOG_ENABLED_KEY = "logEnabled";
+  private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
+  private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
 
   public IncogniaModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -83,6 +90,39 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     return NAME;
   }
 
+  @ReactMethod
+  public void initSdk() {
+    try {
+      Application application = (Application) getReactApplicationContext().getApplicationContext();
+      Incognia.init(application);
+    } catch (Exception e) {
+      Log.e(NAME, "Error initializing Incognia SDK: " + e.getMessage(), e);
+    }
+  }
+
+  @ReactMethod
+  public void initSdkWithOptions(final ReadableMap optionsParameters) {
+    try {
+      Application application = (Application) getReactApplicationContext().getApplicationContext();
+
+      String appId = optionsParameters.hasKey(OPTIONS_APP_ID_KEY) ? optionsParameters.getString(OPTIONS_APP_ID_KEY) : null;
+      boolean logEnabled = optionsParameters.hasKey(OPTIONS_LOG_ENABLED_KEY) && optionsParameters.getBoolean(OPTIONS_LOG_ENABLED_KEY);
+      boolean locationEnabled = !optionsParameters.hasKey(OPTIONS_LOCATION_ENABLED_KEY) || optionsParameters.getBoolean(OPTIONS_LOCATION_ENABLED_KEY);
+      boolean installedAppsCollectionEnabled = optionsParameters.hasKey(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) &&
+                                               optionsParameters.getBoolean(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY);
+
+      IncogniaOptions options = new IncogniaOptions.Builder()
+        .appId(appId)
+        .logEnabled(logEnabled)
+        .visitsEnabledByDefault(locationEnabled)
+        .installedAppsCollectionEnabled(installedAppsCollectionEnabled)
+        .build();
+
+      Incognia.init(application, options);
+    } catch (Exception e) {
+      Log.e(NAME, "Error initializing Incognia SDK with options: " + e.getMessage(), e);
+    }
+  }
 
   @ReactMethod
   public void setAccountId(final String accountId) {

@@ -20,7 +20,7 @@
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
   // Initializes Incognia
-  [ICGIncognia initSdk];
+  // [ICGIncognia initSdk];
   
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }

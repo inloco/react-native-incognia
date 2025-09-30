@@ -1,6 +1,8 @@
 import { NativeModules, Platform } from 'react-native';
 
 type IncogniaType = {
+  initSdk(): void;
+  initSdkWithOptions(options: IncogniaOptionsType): void;
   setAccountId(accountId: string): void;
   clearAccountId(): void;
   trackEvent(params: TrackEventParamsType): void;
@@ -24,6 +26,25 @@ type IncogniaTrialType = {
   trackLoginSucceeded(params: TrackLoginSucceededParamsType): void;
   trackPaymentSent(params: TrackPaymentParamsType): void;
   TransactionAddressTypes: TranscationAddressTypesType;
+};
+
+type IncogniaOptionsType = {
+  androidOptions: AndroidOptionsType;
+  iosOptions: IOSOptionsType;
+};
+
+type AndroidOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  installedAppsCollectionEnabled?: boolean;
+};
+
+type IOSOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  urlSchemesCheckEnabled?: boolean;
 };
 
 type ConsentTypesType = {
@@ -96,6 +117,14 @@ type ConsentRequestParamsType = {
 
 const { IncogniaModule } = NativeModules;
 
+export const initSdk = IncogniaModule.initSdk
+export const initSdkWithOptions = (params: IncogniaOptionsType) => {
+  if (Platform.OS === 'ios') {
+    IncogniaModule.initSdkWithOptions(params.iosOptions);
+  } else {
+    IncogniaModule.initSdkWithOptions(params.androidOptions);
+  }
+};
 export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
 export const trackEvent = IncogniaModule.trackEvent;
@@ -139,6 +168,8 @@ export const Trial: IncogniaTrialType = {
 };
 
 export default {
+  initSdk,
+  initSdkWithOptions,
   setAccountId,
   clearAccountId,
   trackEvent,
