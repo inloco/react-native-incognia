@@ -38,6 +38,7 @@ type AndroidOptionsType = {
   logEnabled?: boolean;
   locationEnabled?: boolean;
   installedAppsCollectionEnabled?: boolean;
+  backgroundWakeupEnabled?: boolean;
 };
 
 type IOSOptionsType = {

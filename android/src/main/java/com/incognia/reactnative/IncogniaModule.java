@@ -79,6 +79,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String OPTIONS_LOG_ENABLED_KEY = "logEnabled";
   private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
   private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
+  private static final String OPTIONS_BACKGROUND_WAKEUP_ENABLED_KEY = "backgroundWakeupEnabled";
 
   public IncogniaModule(ReactApplicationContext reactContext) {
     super(reactContext);
@@ -110,12 +111,15 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
       boolean locationEnabled = !optionsParameters.hasKey(OPTIONS_LOCATION_ENABLED_KEY) || optionsParameters.getBoolean(OPTIONS_LOCATION_ENABLED_KEY);
       boolean installedAppsCollectionEnabled = optionsParameters.hasKey(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) &&
                                                optionsParameters.getBoolean(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY);
+      boolean backgroundWakeupEnabled = optionsParameters.hasKey(OPTIONS_BACKGROUND_WAKEUP_ENABLED_KEY) && optionsParameters.getBoolean(
+        OPTIONS_BACKGROUND_WAKEUP_ENABLED_KEY);
 
       IncogniaOptions options = new IncogniaOptions.Builder()
         .appId(appId)
         .logEnabled(logEnabled)
         .visitsEnabledByDefault(locationEnabled)
         .installedAppsCollectionEnabled(installedAppsCollectionEnabled)
+        .backgroundWakeupEnabled(backgroundWakeupEnabled)
         .build();
 
       Incognia.init(application, options);
