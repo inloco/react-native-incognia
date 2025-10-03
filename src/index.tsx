@@ -118,7 +118,7 @@ type ConsentRequestParamsType = {
 
 const { IncogniaModule } = NativeModules;
 
-export const initSdk = IncogniaModule.initSdk
+export const initSdk = IncogniaModule.initSdk;
 export const initSdkWithOptions = (params: IncogniaOptionsType) => {
   if (Platform.OS === 'ios') {
     IncogniaModule.initSdkWithOptions(params.iosOptions);
