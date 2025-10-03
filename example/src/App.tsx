@@ -20,6 +20,26 @@ import Incognia from 'react-native-incognia';
 
 export default class App extends React.Component {
   componentDidMount() {
+    //* Toggle to switch between init with files or init with options
+    Incognia.initSdk();
+    /*/ 
+    Incognia.initSdkWithOptions({
+      androidOptions: {
+        appId: '1f8521e2-b84b-4968-b2bf-a84bff12cda0',
+        logEnabled: true,
+        locationEnabled: true,
+        backgroundWakeupEnabled: false,
+        // installedAppsCollectionEnabled: false,
+      },
+      iosOptions: {
+        appId: '901d7f66-0f0e-49ad-ae88-82c728a8149e',
+        logEnabled: true,
+        locationEnabled: true,
+        // urlSchemesCheckEnabled: false,
+      },
+    });
+    //*/
+
     if (Platform.OS === 'ios') {
       requestMultiple([
         PERMISSIONS.IOS.LOCATION_ALWAYS,

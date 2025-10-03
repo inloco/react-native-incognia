@@ -1,3 +1,7 @@
+Release 6.26.0
+===
+- Adds SDK initialization methods that can be called directly from JavaScript
+
 Release 6.25.0
 ===
 - Updates Incognia iOS SDK to version 6.23.+
