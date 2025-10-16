@@ -1,6 +1,8 @@
 import { NativeModules, Platform } from 'react-native';
 
 type IncogniaType = {
+  initSdk(): void;
+  initSdkWithOptions(options: IncogniaOptionsType): void;
   setAccountId(accountId: string): void;
   clearAccountId(): void;
   setLocationEnabled(enabled: boolean): void;
@@ -13,6 +15,25 @@ type IncogniaType = {
   PaymentCouponTypes: PaymentCouponTypesType;
   PaymentMethodTypes: PaymentMethodTypesType;
   PaymentMethodBrands: PaymentMethodBrandsType;
+};
+
+type IncogniaOptionsType = {
+  androidOptions: AndroidOptionsType;
+  iosOptions: IOSOptionsType;
+};
+
+type AndroidOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  installedAppsCollectionEnabled?: boolean;
+};
+
+type IOSOptionsType = {
+  appId: string;
+  logEnabled?: boolean;
+  locationEnabled?: boolean;
+  urlSchemesCheckEnabled?: boolean;
 };
 
 type PaymentAddressTypesType = {
@@ -66,7 +87,7 @@ type OnboardingEventParamsType = {
 type LoginEventParamsType = {
   accountId: string;
   externalId?: string;
-  location?: UserLocationType;
+  location?: EventLocationType;
   tag?: string;
   properties?: { [key: string]: string | number | boolean };
   status?: string;
@@ -75,7 +96,7 @@ type LoginEventParamsType = {
 type PaymentEventParamsType = {
   accountId: string;
   externalId?: string;
-  location?: UserLocationType;
+  location?: EventLocationType;
   addresses?: Array<PaymentAddressType>;
   paymentValue?: PaymentValueType;
   paymentCoupon?: PaymentCouponType;
@@ -86,7 +107,7 @@ type PaymentEventParamsType = {
   status?: string;
 };
 
-type UserLocationType = {
+type EventLocationType = {
   latitude: number;
   longitude: number;
   timestamp?: number;
@@ -130,11 +151,11 @@ type PaymentMethodType = {
   type: string;
   identifier?: string;
   brand?: string;
-  creditCardInfo?: PaymentMethodCardInfoType;
-  debitCardInfo?: PaymentMethodCardInfoType;
+  creditCardInfo?: CardInfoType;
+  debitCardInfo?: CardInfoType;
 };
 
-type PaymentMethodCardInfoType = {
+type CardInfoType = {
   bin: string;
   lastFourDigits: string;
   expiryYear?: string;
@@ -150,6 +171,16 @@ const transformToStringMap = (
 };
 
 const { IncogniaModule } = NativeModules;
+
+export const initSdk = IncogniaModule.initSdk;
+
+export const initSdkWithOptions = (params: IncogniaOptionsType) => {
+  if (Platform.OS === 'ios') {
+    IncogniaModule.initSdkWithOptions(params.iosOptions);
+  } else {
+    IncogniaModule.initSdkWithOptions(params.androidOptions);
+  }
+};
 
 export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
@@ -372,6 +403,8 @@ export const PaymentMethodBrands: PaymentMethodBrandsType = {
 };
 
 export default {
+  initSdk,
+  initSdkWithOptions,
   setAccountId,
   clearAccountId,
   setLocationEnabled,
