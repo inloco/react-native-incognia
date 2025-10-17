@@ -25,14 +25,14 @@ export default class App extends React.Component {
     /*/ 
     Incognia.initSdkWithOptions({
       androidOptions: {
-        appId: '7dd3c618-280e-42b7-bd39-1ac302663ed1',
-        logEnabled: false,
+        appId: '1f8521e2-b84b-4968-b2bf-a84bff12cda0',
+        logEnabled: true,
         locationEnabled: true,
         // installedAppsCollectionEnabled: false,
       },
       iosOptions: {
-        appId: '7dd3c618-280e-42b7-bd39-1ac302663ed1',
-        logEnabled: false,
+        appId: '901d7f66-0f0e-49ad-ae88-82c728a8149e',
+        logEnabled: true,
         locationEnabled: true,
         // urlSchemesCheckEnabled: false,
       },

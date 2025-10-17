@@ -13,6 +13,11 @@
 #define EVENT_EXTERNAL_ID      @"external_id"
 #define EVENT_REACT_PROPERTIES @"reactProperties"
 
+#define OPTIONS_APP_ID_KEY                    @"appId"
+#define OPTIONS_LOG_ENABLED_KEY               @"logEnabled"
+#define OPTIONS_LOCATION_ENABLED_KEY          @"locationEnabled"
+#define OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY @"urlSchemesCheckEnabled"
+
 @implementation ICGIncogniaModule
 
 RCT_EXPORT_MODULE(IncogniaModule)
