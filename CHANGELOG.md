@@ -1,8 +1,8 @@
 Release 7.0.0
 ===
 - Updates Javascript interface to match the SDK 7
-- Updates Incognia Android SDK to version 7.4.+
-- Updates Incognia iOS SDK to version 6.23.+
+- Updates Incognia Android SDK to version 7.5.+
+- Updates Incognia iOS SDK to version 6.24.+
 
 Release 6.26.0
 ===
