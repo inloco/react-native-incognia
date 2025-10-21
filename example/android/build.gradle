@@ -24,6 +24,8 @@ buildscript {
 
 apply plugin: "com.facebook.react.rootproject"
 
+def accessToken = getProperty('ICG_RN_ACCESS_TOKEN')
+
 allprojects {
     repositories {
         mavenLocal()
@@ -38,7 +40,21 @@ allprojects {
 
         google()
         maven { url 'https://www.jitpack.io' }
-        maven { url "https://repo.incognia.com/android/" }
+
+        // Incognia
+        maven {
+            url "https://sdk-assets.incognia.com/android"
+            content {
+                includeGroup("com.incognia")
+            }
+            credentials(HttpHeaderCredentials) {
+                name = "ICG-SDK-Access-Token"
+                value = accessToken
+            }
+            authentication {
+                header(HttpHeaderAuthentication)
+            }
+        }
         mavenCentral {
             // We don't want to fetch react-native from Maven Central as there are
             // older versions over there.

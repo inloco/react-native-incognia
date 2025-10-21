@@ -1,3 +1,9 @@
+Release 7.0.0
+===
+- Updates Javascript interface to match the SDK 7
+- Updates Incognia Android SDK to version 7.5.+
+- Updates Incognia iOS SDK to version 6.24.+
+
 Release 6.26.0
 ===
 - Adds SDK initialization methods that can be called directly from JavaScript
