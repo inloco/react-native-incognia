@@ -1,3 +1,7 @@
+Release 7.1.0
+===
+- Updates Incognia iOS SDK to version 6.26.+
+
 Release 7.0.0
 ===
 - Updates Javascript interface to match the SDK 7
