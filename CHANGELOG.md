@@ -1,3 +1,8 @@
+Release 7.3.0
+===
+- Updates Incognia Android SDK to version 7.8.+
+- Updates Incognia iOS SDK to version 6.28.+
+
 Release 7.2.0
 ===
 - Updates Incognia Android SDK to version 7.7.+
