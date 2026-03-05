@@ -1,3 +1,7 @@
+Release 7.4.0
+===
+- Fixes externalId problem in POV methods
+
 Release 7.3.0
 ===
 - Updates Incognia Android SDK to version 7.8.+
