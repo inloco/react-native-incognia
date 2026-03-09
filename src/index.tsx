@@ -225,6 +225,7 @@ export const sendCustomEvent = (params: CustomEventParamsType) => {
 export const sendOnboardingEvent = (params: OnboardingEventParamsType) => {
   if (Platform.OS === 'ios') {
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_onbrd: JSON.stringify({
@@ -260,6 +261,7 @@ export const sendOnboardingEvent = (params: OnboardingEventParamsType) => {
 export const sendLoginEvent = (params: LoginEventParamsType) => {
   if (Platform.OS === 'ios') {
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_lgn: JSON.stringify({
@@ -332,6 +334,7 @@ export const sendPaymentEvent = (params: PaymentEventParamsType) => {
     }
 
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_paymnt: JSON.stringify({
