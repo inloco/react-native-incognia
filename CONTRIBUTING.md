@@ -30,6 +30,8 @@ To start the packager:
 yarn example start
 ```
 
+> Warning: if you encounter an error while running `yarn example start`, the issue may be related to your Android or iOS local setup rather than Metro itself. Make sure you have all development tools setup, as well as their command line tools.(e.g.: Xcode and Android Studio).
+
 To run the example app on Android:
 
 ```sh
