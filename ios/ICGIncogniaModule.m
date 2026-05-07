@@ -155,7 +155,7 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
         case ICGRequestTokenStatusInternalError:
             return @"internal_error";
         default:
-            return @"error";
+            return @"internal_error";
     }
 }
 

@@ -102,8 +102,8 @@ export default class App extends React.Component {
                 ) {
                   message = requestTokenWithStatus.status;
                 }
-                Alert.alert('RequestTokenWithStatus', message);
-                console.log('RequestTokenWithStatus: ', message);
+                Alert.alert('RequestTokenWithStatus', message!);
+                console.log('RequestTokenWithStatus: ', message!);
               }}
             />
           </View>

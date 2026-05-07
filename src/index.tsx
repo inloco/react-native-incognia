@@ -190,7 +190,7 @@ export const generateRequestToken = IncogniaModule.generateRequestToken;
 export const generateRequestTokenWithStatus =
   (): Promise<RequestTokenWithStatus> => {
     return IncogniaModule.generateRequestTokenWithStatus().then(
-      (requestTokenWithStatusMap: any) => {
+      (requestTokenWithStatusMap: Record<string, any>) => {
         return RequestTokenWithStatus.fromMap(requestTokenWithStatusMap);
       }
     );
@@ -425,7 +425,7 @@ export enum RequestTokenStatus {
 }
 
 export class RequestTokenWithStatus {
-  public readonly token: string;
+  public readonly token: string | null;
   public readonly status: RequestTokenStatus;
 
   constructor(token: string, status: RequestTokenStatus) {
@@ -438,14 +438,12 @@ export class RequestTokenWithStatus {
     const rawStatus = map.status;
 
     const validStatuses = Object.values(RequestTokenStatus) as string[];
-    if (!validStatuses.includes(rawStatus)) {
-      throw new Error(`Unknown RequestTokenStatus name: ${rawStatus}`);
-    }
 
-    return new RequestTokenWithStatus(
-      rawToken,
-      rawStatus as RequestTokenStatus
-    );
+    const status = validStatuses.includes(rawStatus)
+      ? (rawStatus as RequestTokenStatus)
+      : RequestTokenStatus.InternalError;
+
+    return new RequestTokenWithStatus(rawToken, status);
   }
 }
 
