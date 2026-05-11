@@ -178,10 +178,10 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void generateRequestTokenWithStatus(final Promise promise) {
     Incognia.generateRequestTokenWithStatus( requestTokenWithStatus -> {
-      if(requestTokenWithStatus != null){
+      if (requestTokenWithStatus != null) {
         promise.resolve(toMap(requestTokenWithStatus));
-      }else{
-        promise.reject(new Exception("Error while generating a request token."));
+      } else {
+        promise.reject(new Exception("Error while generating a request token with status."));
       }
     });
   }
