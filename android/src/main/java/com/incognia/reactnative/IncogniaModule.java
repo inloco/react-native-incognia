@@ -26,11 +26,14 @@ import com.incognia.PaymentCoupon;
 import com.incognia.PaymentEvent;
 import com.incognia.PaymentMethod;
 import com.incognia.PaymentValue;
+import com.incognia.RequestTokenWithStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 
 @SuppressWarnings({"unused",
                    "Convert2Lambda"})
@@ -163,6 +166,22 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
         promise.resolve(requestToken);
       } else {
         promise.reject(new Exception("Error while generating a request token."));
+      }
+    });
+  }
+
+  @ReactMethod
+  public void reportBusinessUnitId(final String businessUnitId) {
+    Incognia.reportBusinessUnitId(businessUnitId);
+  }
+
+  @ReactMethod
+  public void generateRequestTokenWithStatus(final Promise promise) {
+    Incognia.generateRequestTokenWithStatus( requestTokenWithStatus -> {
+      if (requestTokenWithStatus != null) {
+        promise.resolve(toMap(requestTokenWithStatus));
+      } else {
+        promise.reject(new Exception("Error while generating a request token with status."));
       }
     });
   }
@@ -460,5 +479,12 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     } catch (Throwable t) {
       return null;
     }
+  }
+
+  private WritableMap toMap(RequestTokenWithStatus requestTokenWithStatus) {
+      WritableMap map = Arguments.createMap();
+      map.putString("token", requestTokenWithStatus.getToken());
+      map.putString("status", requestTokenWithStatus.getStatus().name().toLowerCase(Locale.US));
+      return map;
   }
 }
