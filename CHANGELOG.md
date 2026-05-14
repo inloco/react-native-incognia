@@ -2,7 +2,7 @@ Release 7.5.0
 ===
 - Adds generateRequestTokenWithStatus method
 - Adds reportBusinessUnitId method
-- Updates Incognia Android SDK to version 7.9.+
+- Updates Incognia Android SDK to version 7.10.+
 - Updates Incognia iOS SDK to version 6.30.+
 
 Release 7.4.0
