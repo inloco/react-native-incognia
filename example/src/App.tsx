@@ -16,7 +16,7 @@ import {
   Platform,
 } from 'react-native';
 
-import Incognia, { RequestTokenStatus } from 'react-native-incognia';
+import Incognia from 'react-native-incognia';
 
 export default class App extends React.Component {
   componentDidMount() {
@@ -98,7 +98,7 @@ export default class App extends React.Component {
                   await Incognia.generateRequestTokenWithStatus();
                 let message = requestTokenWithStatus.token;
                 if (
-                  requestTokenWithStatus.status !== RequestTokenStatus.Success
+                  requestTokenWithStatus.status !== Incognia.RequestTokenStatus.Success
                 ) {
                   message = requestTokenWithStatus.status;
                 }

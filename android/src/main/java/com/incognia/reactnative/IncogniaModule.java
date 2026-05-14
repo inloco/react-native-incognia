@@ -481,10 +481,10 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
     }
   }
 
-private WritableMap toMap(RequestTokenWithStatus requestTokenWithStatus) {
-    WritableMap map = Arguments.createMap();
-    map.putString("token", requestTokenWithStatus.getToken());
-    map.putString("status", requestTokenWithStatus.getStatus().name().toLowerCase(Locale.US));
-    return map;
-}
+  private WritableMap toMap(RequestTokenWithStatus requestTokenWithStatus) {
+      WritableMap map = Arguments.createMap();
+      map.putString("token", requestTokenWithStatus.getToken());
+      map.putString("status", requestTokenWithStatus.getStatus().name().toLowerCase(Locale.US));
+      return map;
+  }
 }

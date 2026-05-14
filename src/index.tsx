@@ -17,6 +17,8 @@ type IncogniaType = {
   PaymentCouponTypes: PaymentCouponTypesType;
   PaymentMethodTypes: PaymentMethodTypesType;
   PaymentMethodBrands: PaymentMethodBrandsType;
+  RequestTokenStatus: typeof RequestTokenStatus;
+  RequestTokenWithStatus: typeof RequestTokenWithStatus;
 };
 
 type IncogniaOptionsType = {
@@ -464,4 +466,6 @@ export default {
   PaymentCouponTypes,
   PaymentMethodTypes,
   PaymentMethodBrands,
+  RequestTokenStatus,
+  RequestTokenWithStatus
 } as IncogniaType;
