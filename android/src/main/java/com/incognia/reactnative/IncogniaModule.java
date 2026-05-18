@@ -47,7 +47,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String OPTIONS_LOG_ENABLED_KEY = "logEnabled";
   private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
   private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
-  private static final String OPTIONS_REQUEST_TOKEN_MAX_LENGTH = "requestTokenMaxLength";
+  private static final String OPTIONS_REQUEST_TOKEN_MAX_LENGTH_KEY = "requestTokenMaxLength";
 
   private static final String EVENT_ACCOUNT_ID = "accountId";
   private static final String EVENT_EXTERNAL_ID = "externalId";
