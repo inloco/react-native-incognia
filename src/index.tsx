@@ -31,6 +31,7 @@ type AndroidOptionsType = {
   logEnabled?: boolean;
   locationEnabled?: boolean;
   installedAppsCollectionEnabled?: boolean;
+  requestTokenMaxLength?: number;
 };
 
 type IOSOptionsType = {
@@ -467,5 +468,5 @@ export default {
   PaymentMethodTypes,
   PaymentMethodBrands,
   RequestTokenStatus,
-  RequestTokenWithStatus
+  RequestTokenWithStatus,
 } as IncogniaType;
