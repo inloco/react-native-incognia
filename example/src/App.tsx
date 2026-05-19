@@ -29,6 +29,7 @@ export default class App extends React.Component {
         logEnabled: true,
         locationEnabled: true,
         // installedAppsCollectionEnabled: false,
+        // requestTokenMaxLength: 8000,
       },
       iosOptions: {
         appId: '901d7f66-0f0e-49ad-ae88-82c728a8149e',
@@ -98,7 +99,8 @@ export default class App extends React.Component {
                   await Incognia.generateRequestTokenWithStatus();
                 let message = requestTokenWithStatus.token;
                 if (
-                  requestTokenWithStatus.status !== Incognia.RequestTokenStatus.Success
+                  requestTokenWithStatus.status !==
+                  Incognia.RequestTokenStatus.Success
                 ) {
                   message = requestTokenWithStatus.status;
                 }

@@ -1,3 +1,7 @@
+Release 7.5.1
+===
+- Adds requestTokenMaxLength to AndroidOptions
+
 Release 7.5.0
 ===
 - Adds generateRequestTokenWithStatus method
