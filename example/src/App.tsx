@@ -29,6 +29,7 @@ export default class App extends React.Component {
         logEnabled: true,
         locationEnabled: true,
         // installedAppsCollectionEnabled: false,
+        // requestTokenMaxLength: 8000,
       },
       iosOptions: {
         appId: '901d7f66-0f0e-49ad-ae88-82c728a8149e',
@@ -74,11 +75,37 @@ export default class App extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               color={color}
+              title="Report business unit id"
+              onPress={() => Incognia.reportBusinessUnitId('food')}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
               title="Generate Request Token"
               onPress={async () => {
                 let requestToken = await Incognia.generateRequestToken();
                 Alert.alert('RequestToken', requestToken);
                 console.log('RequestToken: ', requestToken);
+              }}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Generate Request Token With Status"
+              onPress={async () => {
+                let requestTokenWithStatus =
+                  await Incognia.generateRequestTokenWithStatus();
+                let message = requestTokenWithStatus.token;
+                if (
+                  requestTokenWithStatus.status !==
+                  Incognia.RequestTokenStatus.Success
+                ) {
+                  message = requestTokenWithStatus.status;
+                }
+                Alert.alert('RequestTokenWithStatus', message!);
+                console.log('RequestTokenWithStatus: ', message!);
               }}
             />
           </View>
