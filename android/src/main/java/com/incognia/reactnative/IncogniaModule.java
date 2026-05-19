@@ -47,6 +47,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String OPTIONS_LOG_ENABLED_KEY = "logEnabled";
   private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
   private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
+  private static final String OPTIONS_REQUEST_TOKEN_MAX_LENGTH_KEY = "requestTokenMaxLength";
 
   private static final String EVENT_ACCOUNT_ID = "accountId";
   private static final String EVENT_EXTERNAL_ID = "externalId";
@@ -130,12 +131,14 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
       boolean logEnabled = optionsParameters.hasKey(OPTIONS_LOG_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_LOG_ENABLED_KEY) : false;
       boolean locationEnabled = optionsParameters.hasKey(OPTIONS_LOCATION_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_LOCATION_ENABLED_KEY) : true;
       boolean installedAppsCollectionEnabled = optionsParameters.hasKey(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) ? optionsParameters.getBoolean(OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY) : false;
-
+      int requestTokenMaxLength = optionsParameters.hasKey(OPTIONS_REQUEST_TOKEN_MAX_LENGTH_KEY) ? optionsParameters.getInt(OPTIONS_REQUEST_TOKEN_MAX_LENGTH_KEY) : 8000; 
+      
       IncogniaOptions options = new IncogniaOptions.Builder()
         .appId(appId)
         .logEnabled(logEnabled)
         .locationEnabled(locationEnabled)
         .installedAppsCollectionEnabled(installedAppsCollectionEnabled)
+        .requestTokenMaxLength(requestTokenMaxLength)
         .build();
 
       Incognia.init(application, options);
