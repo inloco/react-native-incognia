@@ -55,6 +55,20 @@ RCT_EXPORT_METHOD(generateRequestToken:(RCTPromiseResolveBlock)resolve withRejec
     }];
 }
 
+RCT_EXPORT_METHOD(generateRequestTokenWithStatus:(RCTPromiseResolveBlock)resolve withRejecter:(RCTPromiseRejectBlock)reject) {
+    [ICGIncognia generateUniqueRequestTokenWithStatus:^(ICGRequestTokenWithStatus *tokenWithStatus) {
+        if (resolve && tokenWithStatus) {
+            resolve([self requestTokenWithStatusToDict:tokenWithStatus]);
+        } else {
+            reject(nil, @"Incognia: error while generating a unique request token with status", nil);
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(reportBusinessUnitId:(NSString *)businessUnitId) {
+    [ICGIncognia reportBusinessUnitId:businessUnitId];
+}
+
 RCT_EXPORT_METHOD(setLocationEnabled:(BOOL)enabled) {
     [ICGIncognia setLocationEnabled:enabled];
 }
@@ -118,6 +132,31 @@ RCT_EXPORT_METHOD(trackPaymentSent:(NSDictionary *)parameters) {
         return nil;
     }
     return object;
+}
+
+- (NSDictionary *) requestTokenWithStatusToDict:(ICGRequestTokenWithStatus *)tokenWithStatus {
+    NSDictionary *tokenWithStatusDict = @{
+        @"token": tokenWithStatus.token ?: [NSNull null],
+        @"status": [self stringForTokenStatus:tokenWithStatus.status] ?: [NSNull null]
+    };
+    return tokenWithStatusDict;
+}
+
+- (NSString *)stringForTokenStatus:(ICGRequestTokenStatus)status {
+    switch (status) {
+        case ICGRequestTokenStatusSDKNotInitialized:
+            return @"sdk_not_initialized";
+        case ICGRequestTokenStatusTokenCallSyncOnMainThread:
+            return @"token_call_sync_on_main_thread";
+        case ICGRequestTokenStatusTimeout:
+            return @"timeout";
+        case ICGRequestTokenStatusSuccess:
+            return @"success";
+        case ICGRequestTokenStatusInternalError:
+            return @"internal_error";
+        default:
+            return @"internal_error";
+    }
 }
 
 @end

@@ -1,3 +1,32 @@
+Release 7.5.1
+===
+- Adds requestTokenMaxLength to AndroidOptions
+
+Release 7.5.0
+===
+- Adds generateRequestTokenWithStatus method
+- Adds reportBusinessUnitId method
+- Updates Incognia Android SDK to version 7.10.+
+- Updates Incognia iOS SDK to version 6.30.+
+
+Release 7.4.0
+===
+- Fixes externalId problem in POV methods
+
+Release 7.3.0
+===
+- Updates Incognia Android SDK to version 7.8.+
+- Updates Incognia iOS SDK to version 6.28.+
+
+Release 7.2.0
+===
+- Updates Incognia Android SDK to version 7.7.+
+- Updates Incognia iOS SDK to version 6.27.+
+
+Release 7.1.0
+===
+- Updates Incognia iOS SDK to version 6.26.+
+
 Release 7.0.0
 ===
 - Updates Javascript interface to match the SDK 7

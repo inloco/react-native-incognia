@@ -7,6 +7,8 @@ type IncogniaType = {
   clearAccountId(): void;
   setLocationEnabled(enabled: boolean): void;
   generateRequestToken(): Promise<string>;
+  generateRequestTokenWithStatus(): Promise<RequestTokenWithStatus>;
+  reportBusinessUnitId(businessUnitId: string): void;
   sendCustomEvent(params: CustomEventParamsType): void;
   sendOnboardingEvent(params: OnboardingEventParamsType): void;
   sendLoginEvent(params: LoginEventParamsType): void;
@@ -15,6 +17,8 @@ type IncogniaType = {
   PaymentCouponTypes: PaymentCouponTypesType;
   PaymentMethodTypes: PaymentMethodTypesType;
   PaymentMethodBrands: PaymentMethodBrandsType;
+  RequestTokenStatus: typeof RequestTokenStatus;
+  RequestTokenWithStatus: typeof RequestTokenWithStatus;
 };
 
 type IncogniaOptionsType = {
@@ -27,6 +31,7 @@ type AndroidOptionsType = {
   logEnabled?: boolean;
   locationEnabled?: boolean;
   installedAppsCollectionEnabled?: boolean;
+  requestTokenMaxLength?: number;
 };
 
 type IOSOptionsType = {
@@ -185,6 +190,15 @@ export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
 export const generateRequestToken = IncogniaModule.generateRequestToken;
+export const generateRequestTokenWithStatus =
+  (): Promise<RequestTokenWithStatus> => {
+    return IncogniaModule.generateRequestTokenWithStatus().then(
+      (requestTokenWithStatusMap: Record<string, any>) => {
+        return RequestTokenWithStatus.fromMap(requestTokenWithStatusMap);
+      }
+    );
+  };
+export const reportBusinessUnitId = IncogniaModule.reportBusinessUnitId;
 
 export const sendCustomEvent = (params: CustomEventParamsType) => {
   if (Platform.OS === 'ios') {
@@ -225,6 +239,7 @@ export const sendCustomEvent = (params: CustomEventParamsType) => {
 export const sendOnboardingEvent = (params: OnboardingEventParamsType) => {
   if (Platform.OS === 'ios') {
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_onbrd: JSON.stringify({
@@ -260,6 +275,7 @@ export const sendOnboardingEvent = (params: OnboardingEventParamsType) => {
 export const sendLoginEvent = (params: LoginEventParamsType) => {
   if (Platform.OS === 'ios') {
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_lgn: JSON.stringify({
@@ -332,6 +348,7 @@ export const sendPaymentEvent = (params: PaymentEventParamsType) => {
     }
 
     let reactParams = {
+      external_id: params.externalId,
       reactProperties: {
         account_id: params.accountId,
         rn_paymnt: JSON.stringify({
@@ -401,6 +418,38 @@ export const PaymentMethodBrands: PaymentMethodBrandsType = {
   ARGENCARD: 'argencard_brand',
 };
 
+export enum RequestTokenStatus {
+  SdkNotInitialized = 'sdk_not_initialized',
+  TokenCallSyncOnMainThread = 'token_call_sync_on_main_thread',
+  Timeout = 'timeout',
+  InternalError = 'internal_error',
+  Success = 'success',
+  DataCollectionDisabled = 'data_collection_disabled',
+}
+
+export class RequestTokenWithStatus {
+  public readonly token: string | null;
+  public readonly status: RequestTokenStatus;
+
+  constructor(token: string, status: RequestTokenStatus) {
+    this.token = token;
+    this.status = status;
+  }
+
+  static fromMap(map: Record<string, any>): RequestTokenWithStatus {
+    const rawToken = map.token;
+    const rawStatus = map.status;
+
+    const validStatuses = Object.values(RequestTokenStatus) as string[];
+
+    const status = validStatuses.includes(rawStatus)
+      ? (rawStatus as RequestTokenStatus)
+      : RequestTokenStatus.InternalError;
+
+    return new RequestTokenWithStatus(rawToken, status);
+  }
+}
+
 export default {
   initSdk,
   initSdkWithOptions,
@@ -408,6 +457,8 @@ export default {
   clearAccountId,
   setLocationEnabled,
   generateRequestToken,
+  generateRequestTokenWithStatus,
+  reportBusinessUnitId,
   sendCustomEvent,
   sendOnboardingEvent,
   sendLoginEvent,
@@ -416,4 +467,6 @@ export default {
   PaymentCouponTypes,
   PaymentMethodTypes,
   PaymentMethodBrands,
+  RequestTokenStatus,
+  RequestTokenWithStatus,
 } as IncogniaType;
