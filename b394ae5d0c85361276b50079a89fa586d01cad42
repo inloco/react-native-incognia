@@ -1,0 +1,14 @@
+{
+  "event": "security_override",
+  "timestamp": "2026-06-02T16:41:40.103861",
+  "user": "mateus.loureiro@incognia.com",
+  "branch": "chore/lodash_2.0",
+  "files": [
+    "yarn.lock"
+  ],
+  "detectors": [
+    "Box",
+    "Gitleaks: incognia-api-credentials"
+  ],
+  "secrets_found": 10
+}
