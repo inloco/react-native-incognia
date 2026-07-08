@@ -70,7 +70,7 @@
   "resolutions": {
     "word-wrap": "1.2.5",
     "semver": "7.5.2",
-    "shell-quote": "1.7.3",
+    "shell-quote": "1.8.4",
     "lodash": "4.18.1"
   },
   "peerDependencies": {
