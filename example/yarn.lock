@@ -1502,7 +1502,7 @@
     wcwidth "^1.0.1"
     yaml "^2.2.1"
 
-"@react-native-community/cli-platform-android@15.1.3", "@react-native-community/cli-platform-android@^15.0.1":
+"@react-native-community/cli-platform-android@15.1.3", "@react-native-community/cli-platform-android@^15.1.3":
   version "15.1.3"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-android/-/cli-platform-android-15.1.3.tgz#c10c434ea559414b00ca3297a4aabbbba16647c8"
   integrity sha512-ZwrBK0UK4DRHoQm2v5m8+PlNHBK5gmibBU6rqNFLo4aZJ2Rufalbv3SF+DukgSyoI9/kI8UVrzSNj17e+HhN5A==
@@ -1524,7 +1524,7 @@
     execa "^5.0.0"
     fast-xml-parser "^4.4.1"
 
-"@react-native-community/cli-platform-ios@15.1.3", "@react-native-community/cli-platform-ios@^15.0.1":
+"@react-native-community/cli-platform-ios@15.1.3", "@react-native-community/cli-platform-ios@^15.1.3":
   version "15.1.3"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-platform-ios/-/cli-platform-ios-15.1.3.tgz#57d119796b2eab49565131cdfefcf22211a8fdad"
   integrity sha512-DxM8GYkqjrlGuuGiGjrcvUmKC2xv9zDzHbsc4+S160Nn0zbF2OH1DhMlnIuUeCmQnAO6QFMqU99O120iEzCAug==
@@ -1570,7 +1570,7 @@
   dependencies:
     joi "^17.2.1"
 
-"@react-native-community/cli@^15.0.1":
+"@react-native-community/cli@^15.1.3":
   version "15.1.3"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli/-/cli-15.1.3.tgz#35c113d19282b8ac22bfa55ac0045fa8d3c04834"
   integrity sha512-+ih/WYUkJsEV2CMAnOHvVoSIz/Ahg5UJk+sqSIOmY79mWAglQzfLP71o7b0neJCnJWLmWiO6G6/S+kmULefD5g==
