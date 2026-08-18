@@ -4,19 +4,16 @@
 @import IncogniaBR;
 @import IncogniaTrialBR;
 
-#define OPTIONS_APP_ID_KEY                    @"appId"
-#define OPTIONS_LOG_ENABLED_KEY               @"logEnabled"
-#define OPTIONS_LOCATION_ENABLED_KEY          @"locationEnabled"
-#define OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY @"urlSchemesCheckEnabled"
+#define OPTIONS_APP_ID_KEY                     @"appId"
+#define OPTIONS_LOG_ENABLED_KEY                @"logEnabled"
+#define OPTIONS_LOCATION_ENABLED_KEY           @"locationEnabled"
+#define OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY  @"urlSchemesCheckEnabled"
+#define OPTIONS_DEVICE_CHECK_TOKEN_ENABLED_KEY @"deviceCheckTokenEnabled"
 
 #define EVENT_ACCOUNT_ID       @"accountId"
 #define EVENT_EXTERNAL_ID      @"external_id"
 #define EVENT_REACT_PROPERTIES @"reactProperties"
 
-#define OPTIONS_APP_ID_KEY                    @"appId"
-#define OPTIONS_LOG_ENABLED_KEY               @"logEnabled"
-#define OPTIONS_LOCATION_ENABLED_KEY          @"locationEnabled"
-#define OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY @"urlSchemesCheckEnabled"
 
 @implementation ICGIncogniaModule
 
@@ -28,13 +25,14 @@ RCT_EXPORT_METHOD(initSdk) {
 
 RCT_EXPORT_METHOD(initSdkWithOptions:(NSDictionary *)optionsDict) {
     NSString *appId = [self objectOrNilForKey:optionsDict key:OPTIONS_APP_ID_KEY];
-  
     ICGOptions *options = [[ICGOptions alloc] initWithApplicationId:appId];
-    options.logEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_LOG_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_LOG_ENABLED_KEY] boolValue] : false;
-    options.locationEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_LOCATION_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_LOCATION_ENABLED_KEY] boolValue] : true;
-    options.urlSchemesCheckEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY] boolValue] : false;
+    options.logEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_LOG_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_LOG_ENABLED_KEY] boolValue] : NO;
+    options.locationEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_LOCATION_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_LOCATION_ENABLED_KEY] boolValue] : YES;
+    options.urlSchemesCheckEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_URL_SCHEMES_CHECK_ENABLED_KEY] boolValue] : NO;
+    //options.deviceCheckTokenEnabled = [self objectOrNilForKey:optionsDict key:OPTIONS_DEVICE_CHECK_TOKEN_ENABLED_KEY] ? [[self objectOrNilForKey:optionsDict key:OPTIONS_DEVICE_CHECK_TOKEN_ENABLED_KEY] boolValue] : NO;
 
     [ICGIncognia initSdkWithOptions:options];
+
 }
 
 RCT_EXPORT_METHOD(setAccountId:(NSString *)accountId) {

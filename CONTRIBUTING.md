@@ -14,7 +14,18 @@ This is the repository for the Incognia React Native module. It exposes both Inc
 
 ## Development workflow
 
-To get started with the project, run `yarn` in the root directory to install the required dependencies for each package:
+To get started with the project, first install the iOS dependencies by running CocoaPods from the `example/ios` directory:
+
+```sh
+
+cd example/ios
+
+pod install --repo-update
+
+cd ../..
+```
+
+Then, install the required dependencies for each package by running `yarn` in the root directory:
 
 ```sh
 yarn
