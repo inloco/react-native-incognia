@@ -2,7 +2,6 @@ Release 7.6.0
 ===
 - Updates Incognia Android SDK to version 7.11.+
 - Updates Incognia iOS SDK to version 6.32.+
-- Adds deviceCheckTokenEnabled to iosOptions
 
 Release 7.5.1
 ===

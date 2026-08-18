@@ -39,7 +39,6 @@ type IOSOptionsType = {
   logEnabled?: boolean;
   locationEnabled?: boolean;
   urlSchemesCheckEnabled?: boolean;
-  deviceCheckTokenEnabled?: boolean;
 };
 
 type PaymentAddressTypesType = {
