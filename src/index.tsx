@@ -276,6 +276,7 @@ export const sendLoginEvent = (params: LoginEventParamsType) => {
   if (Platform.OS === 'ios') {
     let reactParams = {
       external_id: params.externalId,
+      accountId: params.accountId,
       reactProperties: {
         account_id: params.accountId,
         rn_lgn: JSON.stringify({
