@@ -1,3 +1,7 @@
+Release 7.6.2
+===
+- Updates iOS's RCTConvert import for compatibility with React Native 0.87+
+
 Release 7.6.1
 ===
 - Updates Android's build.gradle to support Gradle 9, enabling compatibility with React Native 0.87+

@@ -1,5 +1,10 @@
-#import "ICGIncogniaModule.h"
+#if __has_include("React/RCTConvert.h")
+#import "React/RCTConvert.h"
+#else // Backward compatibility with older React Native versions
 #import "RCTConvert.h"
+#endif
+
+#import "ICGIncogniaModule.h"
 
 @import IncogniaBR;
 @import IncogniaTrialBR;
