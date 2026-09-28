@@ -6,8 +6,8 @@
 
 #import "ICGIncogniaModule.h"
 
-@import IncogniaBR;
-@import IncogniaTrialBR;
+@import Incognia;
+@import IncogniaTrial;
 
 #define OPTIONS_APP_ID_KEY                    @"appId"
 #define OPTIONS_LOG_ENABLED_KEY               @"logEnabled"

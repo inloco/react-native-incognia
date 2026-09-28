@@ -16,7 +16,6 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm}"
 
   s.dependency "React-Core"
-  s.dependency 'IncogniaTrialBR', '~> 6.33.2'
-  s.dependency 'IncogniaBR', '~> 6.33.2'
-  s.dependency 'IncogniaCoreBR', '~> 6.33.2'
+  s.dependency 'Incognia', '~> 6.33.2'
+  s.dependency 'IncogniaTrial', '~> 6.33.2'
 end
