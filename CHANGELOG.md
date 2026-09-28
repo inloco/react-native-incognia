@@ -1,3 +1,8 @@
+Release 7.7.0
+===
+- Updates Incognia's Android SDK to version 7.12.+
+- Updates Incognia's iOS SDK to version 6.33.2
+
 Release 7.6.2
 ===
 - Updates iOS's RCTConvert import for compatibility with React Native 0.87+
