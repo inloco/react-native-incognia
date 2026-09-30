@@ -191,7 +191,7 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
 
     if (requestTokenParameters != null) {
       if (hasNonNullKey(requestTokenParameters, REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY)) {
-        requestTokenOptionsBuilder.timeout((long) requestTokenParameters.getDouble(REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY));
+        requestTokenOptionsBuilder.timeout((long) requestTokenParameters.getInt(REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY));
       }
       if (hasNonNullKey(requestTokenParameters, REQUEST_TOKEN_OPTIONS_ENSURE_DATA_COLLECTED_KEY)) {
         requestTokenOptionsBuilder.ensureDataCollected(requestTokenParameters.getBoolean(REQUEST_TOKEN_OPTIONS_ENSURE_DATA_COLLECTED_KEY));
