@@ -4,6 +4,7 @@ Release 7.7.0
 - Updates Incognia's iOS SDK to 6.33.x (minimum 6.33.2)
 - Updates the plugin's iOS platform version to 15+
 - Adds deviceCheckTokenEnabled option to IOSOptionsType
+- Adds support to Swift Package Manager (SPM) for iOS
 
 Release 7.6.2
 ===
