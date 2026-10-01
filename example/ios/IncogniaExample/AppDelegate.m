@@ -9,7 +9,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 
-@import IncogniaBR;
+@import Incognia;
 
 @implementation AppDelegate
 
