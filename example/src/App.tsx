@@ -14,12 +14,115 @@ import {
   Button,
   Alert,
   Platform,
+  Text,
 } from 'react-native';
 
 import Incognia from 'react-native-incognia';
+import type { RequestTokenOptionsType } from 'react-native-incognia';
 
-export default class App extends React.Component {
+import { RequestTokenOptionsDialog } from './RequestTokenOptionsDialog';
+
+type AppState = {
+  requestTokenOptions: RequestTokenOptionsType;
+  requestTokenOptionsDialogVisible: boolean;
+  snackbarMessage?: string;
+};
+
+enum RequestTokenResultDisplay {
+  AlertDialog = 'alert',
+  Snackbar = 'snackbar',
+}
+
+export default class App extends React.Component<
+  Record<string, never>,
+  AppState
+> {
+  state: AppState = {
+    requestTokenOptions: {
+      androidRequestTokenOptions: {
+        timeout: 12000,
+        requestTokenMaxLength: 8000,
+      },
+    },
+    requestTokenOptionsDialogVisible: false,
+  };
+
+  postInitFrame?: number;
+  snackbarTimeout?: ReturnType<typeof setTimeout>;
+  appMounted = false;
+
+  showSnackbar = (message: string) => {
+    if (!this.appMounted) return;
+    if (this.snackbarTimeout) clearTimeout(this.snackbarTimeout);
+
+    this.setState({ snackbarMessage: message });
+    this.snackbarTimeout = setTimeout(() => {
+      this.setState({ snackbarMessage: undefined });
+    }, 3000);
+  };
+
+  showRequestTokenOptionsDialog = () => {
+    this.setState({ requestTokenOptionsDialogVisible: true });
+  };
+
+  hideRequestTokenOptionsDialog = () => {
+    this.setState({ requestTokenOptionsDialogVisible: false });
+  };
+
+  saveRequestTokenOptions = (requestTokenOptions: RequestTokenOptionsType) => {
+    this.setState(
+      {
+        requestTokenOptions,
+        requestTokenOptionsDialogVisible: false,
+      },
+      () => this.showSnackbar('RequestTokenOptions set')
+    );
+  };
+
+  generateRequestTokenWithStatus = async (
+    display: RequestTokenResultDisplay,
+    requestTokenOptions?: RequestTokenOptionsType
+  ) => {
+    const requestTokenWithStatus = requestTokenOptions ?
+      await Incognia.generateRequestTokenWithStatus(requestTokenOptions) : 
+      await Incognia.generateRequestTokenWithStatus();
+    const token = requestTokenWithStatus.token ?? 'null';
+    const status = requestTokenWithStatus.status.toUpperCase();
+
+    console.log(`RequestTokenWithStatus ${status}: ${token}`);
+    if (display === RequestTokenResultDisplay.Snackbar) {
+      this.showSnackbar(`Request token with status ${status} was generated`);
+    } else {
+      Alert.alert(`RequestTokenWithStatus ${status}`, token);
+    }
+  };
+
+  requestPermissions = async () => {
+    if (Platform.OS === 'ios') {
+      await requestMultiple([
+        PERMISSIONS.IOS.LOCATION_ALWAYS,
+        PERMISSIONS.IOS.APP_TRACKING_TRANSPARENCY,
+      ]);
+    } else if (Platform.OS === 'android') {
+      const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      if (result === RESULTS.GRANTED) {
+        await request(PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION);
+      }
+    }
+  };
+
+  componentWillUnmount() {
+    this.appMounted = false;
+    if (this.postInitFrame !== undefined) {
+      cancelAnimationFrame(this.postInitFrame);
+    }
+    if (this.snackbarTimeout) {
+      clearTimeout(this.snackbarTimeout);
+    }
+  }
+
   componentDidMount() {
+    this.appMounted = true;
     //* Toggle to switch between init with files or init with options
     // Incognia.initSdk();
 
@@ -40,18 +143,14 @@ export default class App extends React.Component {
       },
     });
 
-    if (Platform.OS === 'ios') {
-      requestMultiple([
-        PERMISSIONS.IOS.LOCATION_ALWAYS,
-        PERMISSIONS.IOS.APP_TRACKING_TRANSPARENCY,
-      ]);
-    } else if (Platform.OS === 'android') {
-      request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then((result) => {
-        if (result === RESULTS.GRANTED) {
-          request(PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION);
-        }
+    this.postInitFrame = requestAnimationFrame(() => {
+      this.requestPermissions();
+      this.generateRequestTokenWithStatus(RequestTokenResultDisplay.Snackbar, {
+        androidRequestTokenOptions: {
+          ensureDataCollected: true,
+        },
       });
-    }
+    });
   }
 
   render() {
@@ -94,19 +193,30 @@ export default class App extends React.Component {
             <Button
               color={color}
               title="Generate Request Token With Status"
-              onPress={async () => {
-                let requestTokenWithStatus =
-                  await Incognia.generateRequestTokenWithStatus();
-                let message = requestTokenWithStatus.token;
-                if (
-                  requestTokenWithStatus.status !==
-                  Incognia.RequestTokenStatus.Success
-                ) {
-                  message = requestTokenWithStatus.status;
-                }
-                Alert.alert('RequestTokenWithStatus', message!);
-                console.log('RequestTokenWithStatus: ', message!);
-              }}
+              onPress={() =>
+                this.generateRequestTokenWithStatus(
+                  RequestTokenResultDisplay.AlertDialog
+                )
+              }
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Set Request Token Options"
+              onPress={this.showRequestTokenOptionsDialog}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              color={color}
+              title="Generate Request Token With Status Using Options"
+              onPress={() =>
+                this.generateRequestTokenWithStatus(
+                  RequestTokenResultDisplay.AlertDialog,
+                  this.state.requestTokenOptions
+                )
+              }
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -308,6 +418,19 @@ export default class App extends React.Component {
             />
           </View>
         </ScrollView>
+        <RequestTokenOptionsDialog
+          onCancel={this.hideRequestTokenOptionsDialog}
+          onSave={this.saveRequestTokenOptions}
+          requestTokenOptions={this.state.requestTokenOptions}
+          visible={this.state.requestTokenOptionsDialogVisible}
+        />
+        {this.state.snackbarMessage ? (
+          <View style={styles.snackbar}>
+            <Text style={styles.snackbarText}>
+              {this.state.snackbarMessage}
+            </Text>
+          </View>
+        ) : null}
       </SafeAreaView>
     );
   }
@@ -323,5 +446,17 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     margin: 10,
+  },
+  snackbar: {
+    backgroundColor: '#323232',
+    bottom: 16,
+    left: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    position: 'absolute',
+    right: 16,
+  },
+  snackbarText: {
+    color: '#FFFFFF',
   },
 });
