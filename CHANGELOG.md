@@ -5,6 +5,7 @@ Release 7.7.0
 - Updates the plugin's iOS platform version to 15+
 - Adds deviceCheckTokenEnabled option to IOSOptionsType
 - Adds support to Swift Package Manager (SPM) for iOS
+- Adds RequestTokenOptions to generateRequestTokenWithStatus method
 
 Release 7.6.2
 ===
