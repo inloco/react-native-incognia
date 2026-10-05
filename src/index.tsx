@@ -7,7 +7,9 @@ type IncogniaType = {
   clearAccountId(): void;
   setLocationEnabled(enabled: boolean): void;
   generateRequestToken(): Promise<string>;
-  generateRequestTokenWithStatus(): Promise<RequestTokenWithStatus>;
+  generateRequestTokenWithStatus(
+    requestTokenParameters?: RequestTokenOptionsType
+  ): Promise<RequestTokenWithStatus>;
   reportBusinessUnitId(businessUnitId: string): void;
   sendCustomEvent(params: CustomEventParamsType): void;
   sendOnboardingEvent(params: OnboardingEventParamsType): void;
@@ -39,6 +41,17 @@ type IOSOptionsType = {
   logEnabled?: boolean;
   locationEnabled?: boolean;
   urlSchemesCheckEnabled?: boolean;
+  deviceCheckTokenEnabled?: boolean;
+};
+
+export type RequestTokenOptionsType = {
+  androidRequestTokenOptions: AndroidRequestTokenOptionsType;
+};
+
+export type AndroidRequestTokenOptionsType = {
+  timeout?: number;
+  requestTokenMaxLength?: number;
+  ensureDataCollected?: boolean;
 };
 
 type PaymentAddressTypesType = {
@@ -190,14 +203,22 @@ export const setAccountId = IncogniaModule.setAccountId;
 export const clearAccountId = IncogniaModule.clearAccountId;
 export const setLocationEnabled = IncogniaModule.setLocationEnabled;
 export const generateRequestToken = IncogniaModule.generateRequestToken;
-export const generateRequestTokenWithStatus =
-  (): Promise<RequestTokenWithStatus> => {
-    return IncogniaModule.generateRequestTokenWithStatus().then(
-      (requestTokenWithStatusMap: Record<string, any>) => {
-        return RequestTokenWithStatus.fromMap(requestTokenWithStatusMap);
-      }
-    );
-  };
+export const generateRequestTokenWithStatus = (
+  requestTokenParameters?: RequestTokenOptionsType
+): Promise<RequestTokenWithStatus> => {
+  const requestTokenWithStatusPromise =
+    Platform.OS === 'android'
+      ? IncogniaModule.generateRequestTokenWithStatus(
+          requestTokenParameters?.androidRequestTokenOptions
+        )
+      : IncogniaModule.generateRequestTokenWithStatus();
+
+  return requestTokenWithStatusPromise.then(
+    (requestTokenWithStatusMap: Record<string, any>) => {
+      return RequestTokenWithStatus.fromMap(requestTokenWithStatusMap);
+    }
+  );
+};
 export const reportBusinessUnitId = IncogniaModule.reportBusinessUnitId;
 
 export const sendCustomEvent = (params: CustomEventParamsType) => {

@@ -10,13 +10,25 @@ Pod::Spec.new do |s|
   s.license      = package["license"]
   s.authors      = package["author"]
 
-  s.platforms    = { :ios => "10.0" }
+  s.platforms    = { :ios => "15.0" }
   s.source       = { :git => "https://github.com/inloco/react-native-incognia.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm}"
 
   s.dependency "React-Core"
-  s.dependency 'IncogniaTrialBR', '~> 6.32.0'
-  s.dependency 'IncogniaBR', '~> 6.32.0'
-  s.dependency 'IncogniaCoreBR', '~> 6.32.0'
+  if ENV['INCOGNIA_USE_SPM'] == '1'
+    unless defined?(spm_dependency)
+      raise 'INCOGNIA_USE_SPM=1 requires React Native 0.75 or newer'
+    end
+
+    spm_dependency(
+      s,
+      url: 'https://github.com/inloco/incognia-spm.git',
+      requirement: { kind: 'upToNextMinorVersion', minimumVersion: '6.33.2' },
+      products: ['Incognia']
+    )
+  else
+    s.dependency 'Incognia', '~> 6.33.2'
+    s.dependency 'IncogniaTrial', '~> 6.33.2'
+  end
 end
