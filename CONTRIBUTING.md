@@ -20,16 +20,38 @@ To get started with the project, run `yarn` in the root directory to install the
 yarn
 ```
 
-Remember to update the iOS dependencies by running CocoaPods from the `example/ios` directory, especially after making changes to the Podfile:
+### Installing iOS dependencies
+
+Remember to update the iOS dependencies from the `example/ios` directory, especially after making changes to the Podfile.
+
+#### CocoaPods (default)
+
+The default integration uses CocoaPods for both the plugin and the Incognia iOS SDK. This is also the supported integration for React Native versions below `0.75`:
 
 ```sh
-
 cd example/ios
-
 pod install --repo-update
-
 cd ../..
 ```
+
+#### Swift Package Manager through `spm_dependency` (RN `0.75` to `0.86`)
+
+React Native versions from `0.75` to `0.86` can resolve the Incognia iOS SDK through SPM using React Native's `spm_dependency` support. Enable it when installing the Example project pods:
+
+```sh
+cd example/ios
+INCOGNIA_USE_SPM=1 USE_FRAMEWORKS=dynamic pod install --repo-update
+```
+
+Using SPM packages inside a React Native app currently requires the entire iOS project to adopt dynamic linkage. In the Example project, set `USE_FRAMEWORKS=dynamic` when running `pod install` to activate dynamic linkage.
+
+The plugin resolves the Incognia SDK from `https://github.com/inloco/incognia-spm.git`. Without `INCOGNIA_USE_SPM=1`, the podspec continues to use the default CocoaPods dependencies.
+
+#### SPM autolinking (RN `0.87+`)
+
+React Native `0.87+` projects can use the plugin's `ios/Package.swift` through [React Native's SPM autolinking](https://reactnative.dev/blog/2026/08/11/react-native-0.87#experimental-swift-package-manager-support-for-ios). In this flow, the plugin and the Incognia SDK are resolved as Swift packages, so `pod install` and CocoaPods are not required. Follow the React Native project's regular SPM dependency installation workflow.
+
+### Running the app
 
 > While it's possible to use [`npm`](https://github.com/npm/cli), the tooling is built around [`yarn`](https://classic.yarnpkg.com/), so you'll have an easier time if you use `yarn` for development.
 

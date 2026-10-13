@@ -14,6 +14,23 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+if linkage == 'dynamic'
+  pre_install do |installer|
+    Pod::Installer::Xcode::TargetValidator.send(
+      :define_method,
+      :verify_no_static_framework_transitive_dependencies
+    ) {}
+
+    installer.pod_targets.each do |pod|
+      next unless pod.name == 'RNPermissions' || pod.name.start_with?('Permission-')
+
+      def pod.build_type
+        Pod::BuildType.static_library
+      end
+    end
+  end
+end
+
 target 'IncogniaExample' do
   config = use_native_modules!
 

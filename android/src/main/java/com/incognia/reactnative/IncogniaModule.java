@@ -4,14 +4,18 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
+
 import com.incognia.CardInfo;
 import com.incognia.CustomEvent;
 import com.incognia.EventAddress;
@@ -26,14 +30,13 @@ import com.incognia.PaymentCoupon;
 import com.incognia.PaymentEvent;
 import com.incognia.PaymentMethod;
 import com.incognia.PaymentValue;
+import com.incognia.RequestTokenOptions;
 import com.incognia.RequestTokenWithStatus;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableMap;
 
 @SuppressWarnings({"unused",
                    "Convert2Lambda"})
@@ -48,6 +51,10 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   private static final String OPTIONS_LOCATION_ENABLED_KEY = "locationEnabled";
   private static final String OPTIONS_INSTALLED_APPS_COLLECTION_ENABLED_KEY = "installedAppsCollectionEnabled";
   private static final String OPTIONS_REQUEST_TOKEN_MAX_LENGTH_KEY = "requestTokenMaxLength";
+
+  private static final String REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY = "timeout";
+  private static final String REQUEST_TOKEN_OPTIONS_ENSURE_DATA_COLLECTED_KEY = "ensureDataCollected";
+  private static final String REQUEST_TOKEN_OPTIONS_MAX_LENGTH_KEY = "requestTokenMaxLength";
 
   private static final String EVENT_ACCOUNT_ID = "accountId";
   private static final String EVENT_EXTERNAL_ID = "externalId";
@@ -179,8 +186,24 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void generateRequestTokenWithStatus(final Promise promise) {
-    Incognia.generateRequestTokenWithStatus( requestTokenWithStatus -> {
+  public void generateRequestTokenWithStatus(@Nullable final ReadableMap requestTokenParameters, final Promise promise) {
+    RequestTokenOptions.Builder requestTokenOptionsBuilder = new RequestTokenOptions.Builder();
+
+    if (requestTokenParameters != null) {
+      if (hasNonNullKey(requestTokenParameters, REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY)) {
+        requestTokenOptionsBuilder.timeout((long) requestTokenParameters.getInt(REQUEST_TOKEN_OPTIONS_TIMEOUT_KEY));
+      }
+      if (hasNonNullKey(requestTokenParameters, REQUEST_TOKEN_OPTIONS_ENSURE_DATA_COLLECTED_KEY)) {
+        requestTokenOptionsBuilder.ensureDataCollected(requestTokenParameters.getBoolean(REQUEST_TOKEN_OPTIONS_ENSURE_DATA_COLLECTED_KEY));
+      }
+      if (hasNonNullKey(requestTokenParameters, REQUEST_TOKEN_OPTIONS_MAX_LENGTH_KEY)) {
+        requestTokenOptionsBuilder.requestTokenMaxLength(requestTokenParameters.getInt(REQUEST_TOKEN_OPTIONS_MAX_LENGTH_KEY));
+      }
+    }
+
+    RequestTokenOptions requestTokenOptions = requestTokenOptionsBuilder.build();
+
+    Incognia.generateRequestTokenWithStatus(requestTokenOptions, requestTokenWithStatus -> {
       if (requestTokenWithStatus != null) {
         promise.resolve(toMap(requestTokenWithStatus));
       } else {
@@ -489,5 +512,9 @@ public class IncogniaModule extends ReactContextBaseJavaModule {
       map.putString("token", requestTokenWithStatus.getToken());
       map.putString("status", requestTokenWithStatus.getStatus().name().toLowerCase(Locale.US));
       return map;
+  }
+
+  private static boolean hasNonNullKey(final ReadableMap parameters, final String key) {
+    return parameters.hasKey(key) && !parameters.isNull(key);
   }
 }
