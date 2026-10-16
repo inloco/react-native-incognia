@@ -1,3 +1,8 @@
+Release 7.8.0
+===
+- Updates Incognia's Android SDK to 7.13.x (minimum 7.13.2)
+- Updates Incognia's iOS SDK to 6.34.x
+
 Release 7.7.0
 ===
 - Updates Incognia's Android SDK to version 7.12.+

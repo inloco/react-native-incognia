@@ -16,7 +16,7 @@ let package = Package(
         .package(name: "ReactNative", path: "../../react-native/xcframeworks"),
         .package(name: "React-GeneratedCode", path: "../../react-native/ios"),
 
-        .package(url: "https://github.com/inloco/incognia-spm.git", .upToNextMinor(from: "6.33.2"))
+        .package(url: "https://github.com/inloco/incognia-spm.git", .upToNextMinor(from: "6.34.0"))
     ],
     targets: [
         .target(

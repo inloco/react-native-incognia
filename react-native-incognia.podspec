@@ -24,11 +24,11 @@ Pod::Spec.new do |s|
     spm_dependency(
       s,
       url: 'https://github.com/inloco/incognia-spm.git',
-      requirement: { kind: 'upToNextMinorVersion', minimumVersion: '6.33.2' },
+      requirement: { kind: 'upToNextMinorVersion', minimumVersion: '6.34.0' },
       products: ['Incognia']
     )
   else
-    s.dependency 'Incognia', '~> 6.33.2'
-    s.dependency 'IncogniaTrial', '~> 6.33.2'
+    s.dependency 'Incognia', '~> 6.34.0'
+    s.dependency 'IncogniaTrial', '~> 6.34.0'
   end
 end
