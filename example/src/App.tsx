@@ -83,9 +83,9 @@ export default class App extends React.Component<
     display: RequestTokenResultDisplay,
     requestTokenOptions?: RequestTokenOptionsType
   ) => {
-    const requestTokenWithStatus = requestTokenOptions ?
-      await Incognia.generateRequestTokenWithStatus(requestTokenOptions) : 
-      await Incognia.generateRequestTokenWithStatus();
+    const requestTokenWithStatus = requestTokenOptions
+      ? await Incognia.generateRequestTokenWithStatus(requestTokenOptions)
+      : await Incognia.generateRequestTokenWithStatus();
     const token = requestTokenWithStatus.token ?? 'null';
     const status = requestTokenWithStatus.status.toUpperCase();
 
