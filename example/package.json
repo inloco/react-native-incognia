@@ -34,8 +34,7 @@
     "typescript": "5.0.4"
   },
   "resolutions": {
-    "word-wrap": "1.2.5",
-    "semver": "7.5.2"
+    "word-wrap": "1.2.5"
   },
   "engines": {
     "node": ">=18"
